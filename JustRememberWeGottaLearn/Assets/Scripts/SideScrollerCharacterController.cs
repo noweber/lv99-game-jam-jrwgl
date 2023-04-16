@@ -1,6 +1,7 @@
+using TMPro;
 using UnityEngine;
 
-public class CharacterController2D : MonoBehaviour
+public class SideScrollerCharacterController : MonoBehaviour
 {
     [SerializeField] private float speed = 5f; // Movement speed
     [SerializeField] private float jumpForce = 10f; // Jump force
@@ -9,15 +10,15 @@ public class CharacterController2D : MonoBehaviour
     [SerializeField] private float sprintStaminaRecoveryRate = 0.5f; // Stamina recovery rate per second when not sprinting
     [SerializeField] private float dashDistance = 5f; // Dash distance
     [SerializeField] private float dashCooldown = 2f; // Dash cooldown
+    [SerializeField] private TextMeshProUGUI staminaText;
 
     private Rigidbody2D rb;
     private float moveInput;
     private bool isGrounded;
     private bool isSprinting;
     private float sprintMultiplier = 1f;
-    [SerializeField] private float sprintStamina = 100f;
-    [SerializeField] private float sprintMaxStamina = 100f;
-    private float dashTimer;
+    private float sprintStamina = 100f;
+    private float sprintMaxStamina = 100f;
 
     private void Awake()
     {
@@ -52,6 +53,7 @@ public class CharacterController2D : MonoBehaviour
             sprintStamina = Mathf.Clamp(sprintStamina + sprintStaminaRecoveryRate * Time.deltaTime, 0f, sprintMaxStamina);
             sprintMultiplier = 1f;
         }
+        UpdateStaminaText();
     }
 
     private void FixedUpdate()
@@ -94,5 +96,13 @@ public class CharacterController2D : MonoBehaviour
     private void StopSprint()
     {
         isSprinting = false;
+    }
+
+    private void UpdateStaminaText()
+    {
+        if (staminaText != null)
+        {
+            staminaText.text = Mathf.RoundToInt((sprintStamina / sprintMaxStamina) * 100f).ToString();
+        }
     }
 }
