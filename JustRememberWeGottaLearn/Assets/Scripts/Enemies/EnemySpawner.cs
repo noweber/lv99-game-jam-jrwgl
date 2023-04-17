@@ -9,7 +9,7 @@ public sealed class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
-        var playerController = FindObjectOfType<SideScrollerPlayerController>();
+        var playerController = FindObjectOfType<TopDownPlayerController>();
         player = playerController.gameObject;
         timeUntilNextSpawn = GetSpawnInterval();
     }
