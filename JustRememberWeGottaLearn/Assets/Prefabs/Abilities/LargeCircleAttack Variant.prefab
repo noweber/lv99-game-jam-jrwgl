@@ -13,7 +13,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2857347583962712069, guid: 5863a89c44f832849ba8bebb9d0cdbcd, type: 3}
       propertyPath: m_Name
-      value: LargeCircleAttack
+      value: LargeCircleAttack Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2857347583962712070, guid: 5863a89c44f832849ba8bebb9d0cdbcd, type: 3}
       propertyPath: radius
@@ -66,6 +66,14 @@ PrefabInstance:
     - target: {fileID: 2857347583962712122, guid: 5863a89c44f832849ba8bebb9d0cdbcd, type: 3}
       propertyPath: m_Radius
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2857347583962712123, guid: 5863a89c44f832849ba8bebb9d0cdbcd, type: 3}
+      propertyPath: damage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2857347583962712123, guid: 5863a89c44f832849ba8bebb9d0cdbcd, type: 3}
+      propertyPath: rateOfFireInSeconds
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5863a89c44f832849ba8bebb9d0cdbcd, type: 3}

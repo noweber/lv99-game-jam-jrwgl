@@ -20,7 +20,7 @@ public class MoveTowardsPlayer : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        var player = FindObjectOfType<SideScrollerPlayerController>();
+        var player = FindObjectOfType<TopDownPlayerController>();
         if (player != null)
         {
             target = player.gameObject;

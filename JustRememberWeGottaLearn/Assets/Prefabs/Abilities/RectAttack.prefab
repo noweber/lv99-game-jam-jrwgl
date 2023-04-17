@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 5
-  rateOfFireInSeconds: 0
+  rateOfFireInSeconds: 3
 --- !u!114 &4730942425228628902
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -44,8 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fc3889848de5e7499027568d991da36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BalanceFreqRange: {x: 2, y: 5}
-  ShaolinKungFuFreqRange: {x: 0, y: 2}
-  WingChunFreqRange: {x: 5, y: 20}
+  BalanceFreqRange: {x: 0, y: 0}
+  ShaolinKungFuFreqRange: {x: 1, y: 2.5}
+  WingChunFreqRange: {x: 5, y: 8}
+  BruceLeeFreqRange: {x: 2.5, y: 5}
+  TunaTechniqueFreqRange: {x: 0, y: 1}
   maxTimeFrameForOOB: 1
   currentStance: 0

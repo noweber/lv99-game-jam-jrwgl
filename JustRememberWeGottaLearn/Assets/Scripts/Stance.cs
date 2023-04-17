@@ -9,6 +9,7 @@ public class Stance : Singleton<Stance>
     [SerializeField] private Vector2 ShaolinKungFuFreqRange;
     [SerializeField] private Vector2 WingChunFreqRange;
     [SerializeField] private Vector2 BruceLeeFreqRange;
+    [SerializeField] private Vector2 TunaTechniqueFreqRange;
 
     [SerializeField] private float maxTimeFrameForOOB;
 
@@ -23,7 +24,8 @@ public class Stance : Singleton<Stance>
         OutOfBreath,
         ShaolinKungFu,
         WingChun,
-        BruceLee
+        BruceLee,
+        TunaTechnique
     }
 
     private void Awake()
@@ -34,33 +36,12 @@ public class Stance : Singleton<Stance>
 
     private void Update()
     {
-        /*
-        if(Time.time - _lastInFreqRangeTimeStamp > maxTimeFrameForOOB)
-        {
-            //Switch stance because out of breath;
-            currentStance = stance.OutOfBreath;
-            onSwitchStance.Invoke();
-        }
-
-        if(Input.GetKeyDown(KeyCode.Z))
-        {
-            //Switch Stance Actively
-            currentStance = FreqInWhatStance(RhythmSystem.Instance.GetFrequency());
-            onSwitchStance.Invoke();
-        }
-
-        if(FreqInWhatStance(RhythmSystem.Instance.GetFrequency()) == currentStance)
-        {
-            _lastInFreqRangeTimeStamp = Time.time;
-        }
-        */
-
+        
         if (FreqInWhatStance(RhythmSystem.Instance.GetFrequency()) != currentStance)
         {
             currentStance = FreqInWhatStance(RhythmSystem.Instance.GetFrequency());
             onSwitchStance.Invoke();
         }
-
 
 
     }
@@ -82,6 +63,11 @@ public class Stance : Singleton<Stance>
         else if (freq < BruceLeeFreqRange[1] && freq > BruceLeeFreqRange[0])
         {
             return stance.BruceLee;
+        }
+
+        else if (freq < TunaTechniqueFreqRange[1] && freq > TunaTechniqueFreqRange[0])
+        {
+            return stance.TunaTechnique;
         }
 
 

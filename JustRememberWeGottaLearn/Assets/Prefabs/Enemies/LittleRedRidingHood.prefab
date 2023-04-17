@@ -64,7 +64,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a2e878fdb16706489c113dffab7de79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoints: 1
+  hitPoints: 4
   hitPointsText: {fileID: 0}
   damageText: {fileID: 168693653855988796, guid: 7a207ec32f7e177489d57e8383905ea8, type: 3}
 --- !u!114 &4310261610617928273

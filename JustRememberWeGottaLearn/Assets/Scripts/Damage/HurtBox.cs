@@ -8,6 +8,7 @@ namespace Assets.Scripts.Damage
 {
     public class HurtBox : MonoBehaviour, IHurtBox
     {
+
         [SerializeField] private float hitPoints = 10;
 
         [SerializeField] private TextMeshProUGUI hitPointsText;
@@ -15,7 +16,8 @@ namespace Assets.Scripts.Damage
         [SerializeField] private GameObject damageText;
 
         public event Action<GameObject> OnHurt;
-
+        public Action OnReceiveDmg;
+       
         void Start()
         {
             UpdateHitPoints();
@@ -26,12 +28,19 @@ namespace Assets.Scripts.Damage
             return hitPoints;
         }
 
+        public void Heal(int healAmount)
+        {
+            UpdateHitPoints();
+            hitPoints += healAmount;
+        }
+
         public void TakeDamage(float damage)
         {
             Debug.Log(MethodBase.GetCurrentMethod().DeclaringType.Name + "::" + MethodBase.GetCurrentMethod());
             hitPoints -= damage;
             Debug.Log("Damage: " + damage);
             UpdateHitPoints();
+            //OnReceiveDmg.Invoke();
             if (hitPoints <= 0)
             {
                 if (damageText != null)
