@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class SideScrollerCharacterController : MonoBehaviour
+public class SideScrollerPlayerController : MonoBehaviour
 {
     [SerializeField] private float speed = 5f; // Movement speed
     [SerializeField] private float jumpForce = 10f; // Jump force
@@ -11,7 +11,6 @@ public class SideScrollerCharacterController : MonoBehaviour
     [SerializeField] private float dashDistance = 5f; // Dash distance
     [SerializeField] private float dashCooldown = 2f; // Dash cooldown
     [SerializeField] private TextMeshProUGUI staminaText;
-
     private Rigidbody2D rb;
     private float moveInput;
     private bool isGrounded;
