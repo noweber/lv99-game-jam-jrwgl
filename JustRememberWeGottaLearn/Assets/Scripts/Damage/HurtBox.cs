@@ -3,6 +3,7 @@ using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.TextCore.Text;
 
 namespace Assets.Scripts.Damage
 {
@@ -16,11 +17,18 @@ namespace Assets.Scripts.Damage
         [SerializeField] private GameObject damageText;
 
         public event Action<GameObject> OnHurt;
-        public Action OnReceiveDmg;
-       
+        public Action OnPlayerReceiveDmg;
+
+        public Action<Vector3, int> OnDamaged;
         void Start()
         {
             UpdateHitPoints();
+
+            if (gameObject.CompareTag("Enemy"))
+            {
+                OnDamaged += (Vector3 position, int damage) => { DamagePopup.Create(position, damage); };
+            }
+
         }
 
         public float GetHitPoints()
@@ -36,11 +44,18 @@ namespace Assets.Scripts.Damage
 
         public void TakeDamage(float damage)
         {
-            Debug.Log(MethodBase.GetCurrentMethod().DeclaringType.Name + "::" + MethodBase.GetCurrentMethod());
+            //Debug.Log(MethodBase.GetCurrentMethod().DeclaringType.Name + "::" + MethodBase.GetCurrentMethod());
             hitPoints -= damage;
-            Debug.Log("Damage: " + damage);
+            //Debug.Log("Damage: " + damage);
             UpdateHitPoints();
-            //OnReceiveDmg.Invoke();
+
+            if (gameObject.CompareTag("Player"))
+            {
+                OnPlayerReceiveDmg.Invoke();
+            }
+            
+
+            OnDamaged?.Invoke(transform.position, (int)damage);
             if (hitPoints <= 0)
             {
                 if (damageText != null)

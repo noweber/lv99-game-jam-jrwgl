@@ -33,11 +33,11 @@ public class PlayerInjureEffect : MonoBehaviour
         if (_eventInitialized)
             return;
       
-        Player.Instance.GetComponent<HurtBox>().OnReceiveDmg += TiggerEffect;
+        Player.Instance.GetComponent<HurtBox>().OnPlayerReceiveDmg += TiggerEffect;
     }
     public void OnDisable()
     {
-        Player.Instance.GetComponent<HurtBox>().OnReceiveDmg -= TiggerEffect;
+        Player.Instance.GetComponent<HurtBox>().OnPlayerReceiveDmg -= TiggerEffect;
         _eventInitialized = false;
     }
 

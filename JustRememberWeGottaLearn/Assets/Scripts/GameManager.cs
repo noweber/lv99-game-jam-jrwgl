@@ -1,18 +1,38 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.TextCore.Text;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    // Start is called before the first frame update
-    void Start()
+   
+    private void Initialization()
     {
-        
+       
+    }
+    
+    private void Start()
+    {
+        Initialization();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Awake()
+    {
+        base.Awake();
+        LoadPrefabsFromResources();
+        //Application.targetFrameRate = -1;
+    }
+
+    //----------Game Assets------------------------
+  
+    [HideInInspector] public GameObject pfDamagePopup;
+
+    private void LoadPrefabsFromResources()
     {
         
+        pfDamagePopup = Resources.Load<GameObject>("pfDamagePopup");
+        Debug.Log(pfDamagePopup);
     }
 }
