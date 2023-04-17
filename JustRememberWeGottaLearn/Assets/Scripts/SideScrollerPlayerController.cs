@@ -28,7 +28,7 @@ public class SideScrollerPlayerController : MonoBehaviour
     {
         // Handle input
         moveInput = Input.GetAxisRaw("Horizontal");
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.W) && isGrounded)
         {
             Jump();
         }

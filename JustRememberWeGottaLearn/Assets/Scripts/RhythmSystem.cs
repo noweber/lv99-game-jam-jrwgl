@@ -16,7 +16,7 @@ public class RhythmSystem : Singleton<RhythmSystem>
     
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             timeSamples.Add(Time.time);
         }
