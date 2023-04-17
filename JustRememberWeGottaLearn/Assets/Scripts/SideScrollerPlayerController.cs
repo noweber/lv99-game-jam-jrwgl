@@ -11,6 +11,10 @@ public class SideScrollerPlayerController : MonoBehaviour
     [SerializeField] private float dashDistance = 5f; // Dash distance
     [SerializeField] private float dashCooldown = 2f; // Dash cooldown
     [SerializeField] private TextMeshProUGUI staminaText;
+
+    [Min(0)]
+    [SerializeField] private float QiValue = 0.0f; // Qi value
+    
     private Rigidbody2D rb;
     private float moveInput;
     private bool isGrounded;
@@ -32,6 +36,9 @@ public class SideScrollerPlayerController : MonoBehaviour
         {
             Jump();
         }
+
+        // Update QI
+        QiUpdate();
 
         // Update sprinting and stamina
         if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -103,5 +110,20 @@ public class SideScrollerPlayerController : MonoBehaviour
         {
             staminaText.text = Mathf.RoundToInt((sprintStamina / sprintMaxStamina) * 100f).ToString();
         }
+    }
+
+    private void QiUpdate()
+    {
+        QiValue -= Time.deltaTime * 7;
+    }
+
+    public void QiChange(float value)
+    {
+        QiValue += value;
+    }
+
+    public float getQi()
+    {
+        return QiValue;
     }
 }
