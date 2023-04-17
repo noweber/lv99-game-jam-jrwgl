@@ -1,18 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 
-public class Kung-Fu : MonoBehaviour
+public abstract class KungFu : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public float spawnInterval = 2f; // The interval between each spawn
+    protected float timeUntilNextSpawn;
+    protected Stance.stance _stance;
+    protected virtual void Start()
     {
-        
+        Stance.Instance.onSwitchStance += TryEnable;
+        timeUntilNextSpawn = spawnInterval;
+        enabled = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    protected void TryEnable()
     {
-        
+        if(_stance == Stance.Instance.currentStance)
+        {
+            enabled = true;
+        }
+        else
+        {
+            enabled = false;
+        }
     }
+
+    protected virtual void Update()
+    {
+        if (timeUntilNextSpawn > 0)
+        {
+            timeUntilNextSpawn -= Time.deltaTime;
+        }
+        if (timeUntilNextSpawn <= 0)
+        {
+            // Reset the timer
+            timeUntilNextSpawn = spawnInterval;
+
+            // Spawn the game object
+            Perform();
+        }
+    }
+
+    public abstract void Perform();
+    
 }

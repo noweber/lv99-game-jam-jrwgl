@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wingchun : KungFu
+public class Shaolin : KungFu
 {
     public GameObject attackAbility;
     protected override void Start()
     {
         base.Start();
-        _stance = Stance.stance.WingChun;
+        _stance = Stance.stance.ShaolinKungFu;
 
     }
 

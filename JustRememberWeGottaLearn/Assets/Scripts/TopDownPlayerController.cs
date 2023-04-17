@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 
 
-public enum playerFaceDirection
+public enum PlayerFaceDirection
 {
     left,
     right,
@@ -28,11 +28,13 @@ public class TopDownPlayerController : MonoBehaviour
     private float sprintStamina = 100f;
     private float sprintMaxStamina = 100f;
 
-   
+
+    public PlayerFaceDirection _currFaceDir;
     
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        _currFaceDir = PlayerFaceDirection.right;
     }
 
     private void Update()
@@ -42,6 +44,18 @@ public class TopDownPlayerController : MonoBehaviour
         float moveInputVertical = Input.GetAxisRaw("Vertical");
 
         moveInput = new Vector2(moveInputHorizontal, moveInputVertical).normalized;
+
+        if(moveInputHorizontal < 0)
+            _currFaceDir = PlayerFaceDirection.left;
+        
+        if(moveInputHorizontal > 0)
+            _currFaceDir = PlayerFaceDirection.right;
+
+        if(moveInputVertical < 0)
+            _currFaceDir = PlayerFaceDirection.down;
+
+        if (moveInputVertical > 0)
+            _currFaceDir = PlayerFaceDirection.up;
 
 
         // Update sprinting and stamina

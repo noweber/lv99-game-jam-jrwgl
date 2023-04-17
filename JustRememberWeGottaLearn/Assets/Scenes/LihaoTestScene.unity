@@ -137,9 +137,11 @@ GameObject:
   - component: {fileID: 138129061}
   - component: {fileID: 138129064}
   - component: {fileID: 138129065}
-  - component: {fileID: 138129066}
   - component: {fileID: 138129067}
   - component: {fileID: 138129068}
+  - component: {fileID: 138129069}
+  - component: {fileID: 138129070}
+  - component: {fileID: 138129071}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -289,20 +291,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilitySpawner: {fileID: 0}
---- !u!114 &138129066
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 138129058}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57b6040aa87fa7445bd4d3d050db9ee9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectToSpawn: {fileID: 2857347583962712069, guid: 5863a89c44f832849ba8bebb9d0cdbcd, type: 3}
-  spawnInterval: 0.5
 --- !u!95 &138129067
 Animator:
   serializedVersion: 5
@@ -342,6 +330,50 @@ MonoBehaviour:
   dashDistance: 5
   dashCooldown: 2
   staminaText: {fileID: 663817050}
+  _currFaceDir: 0
+--- !u!114 &138129069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138129058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b40e71eae8b0904a817891014ab3fe6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnInterval: 0.2
+  attackAbility: {fileID: 2857347583962712069, guid: 5863a89c44f832849ba8bebb9d0cdbcd, type: 3}
+--- !u!114 &138129070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138129058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c14a0e93be9058b4da4f115e409e8d4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnInterval: 2
+  attackAbility: {fileID: 1097258837056083609, guid: 3262f5d75e14df840965fe567e8540cc, type: 3}
+--- !u!114 &138129071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138129058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32b0e581ebb8124794c2d60251b3c4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnInterval: 0.4
+  attackAbility: {fileID: 6272620270087962646, guid: 6771c457a05e4a944898a7582be70714, type: 3}
+  forwardOffset: 3
 --- !u!1 &217484961
 GameObject:
   m_ObjectHideFlags: 0
@@ -1368,6 +1400,38 @@ PrefabInstance:
     - target: {fileID: 2908505609365433158, guid: e54d0ed5baf3f2b4e9184c93bf096259, type: 3}
       propertyPath: m_Name
       value: StanceManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 2908505609365433159, guid: e54d0ed5baf3f2b4e9184c93bf096259, type: 3}
+      propertyPath: BalanceFreqRange.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2908505609365433159, guid: e54d0ed5baf3f2b4e9184c93bf096259, type: 3}
+      propertyPath: BalanceFreqRange.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2908505609365433159, guid: e54d0ed5baf3f2b4e9184c93bf096259, type: 3}
+      propertyPath: BruceLeeFreqRange.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2908505609365433159, guid: e54d0ed5baf3f2b4e9184c93bf096259, type: 3}
+      propertyPath: BruceLeeFreqRange.y
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2908505609365433159, guid: e54d0ed5baf3f2b4e9184c93bf096259, type: 3}
+      propertyPath: WingChunFreqRange.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2908505609365433159, guid: e54d0ed5baf3f2b4e9184c93bf096259, type: 3}
+      propertyPath: WingChunFreqRange.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2908505609365433159, guid: e54d0ed5baf3f2b4e9184c93bf096259, type: 3}
+      propertyPath: ShaolinKungFuFreqRange.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2908505609365433159, guid: e54d0ed5baf3f2b4e9184c93bf096259, type: 3}
+      propertyPath: ShaolinKungFuFreqRange.y
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 2908505609365433208, guid: e54d0ed5baf3f2b4e9184c93bf096259, type: 3}
       propertyPath: m_RootOrder
