@@ -24,7 +24,7 @@ namespace Assets.Scripts.Damage
 
         protected virtual void OnTriggerEnter2D(Collider2D other)
         {
-            Debug.Log(MethodBase.GetCurrentMethod().DeclaringType.Name + "::" + MethodBase.GetCurrentMethod());
+            //ebug.Log(MethodBase.GetCurrentMethod().DeclaringType.Name + "::" + MethodBase.GetCurrentMethod());
             TryDamageObject(other);
         }
 

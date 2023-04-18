@@ -43,7 +43,7 @@ public class PlayerInjureEffect : MonoBehaviour
 
     public void TiggerEffect()
     {
-        Debug.Log("Triggered injure effects");
+        //Debug.Log("Triggered injure effects");
         timeRemaining = 0.4f;
     }
     private void Update()
