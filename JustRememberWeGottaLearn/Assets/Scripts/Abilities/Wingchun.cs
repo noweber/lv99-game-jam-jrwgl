@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Wingchun : KungFu
 {
+    public float dashDist;
     public GameObject attackAbility;
     protected override void Start()
     {
         base.Start();
         _stance = Stance.stance.WingChun;
-
+        autoDashDistance = dashDist;
     }
 
     public override void Perform()

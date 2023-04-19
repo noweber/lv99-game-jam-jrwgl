@@ -6,13 +6,19 @@ using UnityEngine;
 
 public class Stance : Singleton<Stance>
 {
-    
+    [SerializeField] private int BeatPerGeneration;
+    [SerializeField] private int TunaBPM;
+    [SerializeField] private int ShaolinBPM;
+    [SerializeField] private int BruceLeeBPM;
+    [SerializeField] private int WingChunBPM;
+
+
     public stance currentStance;
     public Action onSwitchStance;
 
     private List<stance> stanceList = new List<stance>();
 
-
+    
 
     public enum stance
     {
@@ -43,27 +49,49 @@ public class Stance : Singleton<Stance>
         //Add stance
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            stanceList.Add(stance.ShaolinKungFu);
+            stanceList.Add(stance.TunaTechnique);
                 
         }
         else if(Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            stanceList.Add(stance.ShaolinKungFu);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            stanceList.Add(stance.BruceLee);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             stanceList.Add(stance.WingChun);
         }
 
 
-        if(stanceList.Count > 0)
+        if (stanceList.Count > 0)
         {
             if (stanceList[0] == stance.ShaolinKungFu)
             {
-                if (TempoGenerator.Instance.TryStartGenerate(stanceList[0], 4, 30))
+                if (TempoGenerator.Instance.TryStartGenerate(stanceList[0], BeatPerGeneration, ShaolinBPM))
                 {
                     stanceList.RemoveAt(0);
                 }
             }
             else if (stanceList[0] == stance.WingChun)
             {
-                if (TempoGenerator.Instance.TryStartGenerate(stanceList[0], 4, 120))
+                if (TempoGenerator.Instance.TryStartGenerate(stanceList[0], BeatPerGeneration, WingChunBPM))
+                {
+                    stanceList.RemoveAt(0);
+                }
+            }
+            else if (stanceList[0] == stance.BruceLee)
+            {
+                if (TempoGenerator.Instance.TryStartGenerate(stanceList[0], BeatPerGeneration, BruceLeeBPM))
+                {
+                    stanceList.RemoveAt(0);
+                }
+            }
+            else if (stanceList[0] == stance.TunaTechnique)
+            {
+                if (TempoGenerator.Instance.TryStartGenerate(stanceList[0], BeatPerGeneration, TunaBPM))
                 {
                     stanceList.RemoveAt(0);
                 }

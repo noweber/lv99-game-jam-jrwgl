@@ -9,7 +9,8 @@ public abstract class KungFu : MonoBehaviour
     protected float timeUntilNextSpawn;
     protected Stance.stance _stance;
 
-    [SerializeField] private float autoDashLength = 1.0f;
+    [SerializeField] private LayerMask enemyLayer;
+    protected float autoDashDistance = 1.0f;
 
 
     protected virtual void Start()
@@ -53,19 +54,60 @@ public abstract class KungFu : MonoBehaviour
     {
         if (enabled)
         {
-            Debug.Log("Do Auto Dash");
-            transform.position += Vector3.up * autoDashLength;
+            //Debug.Log("Do Auto Dash");
+            
+            transform.position = GetOptimalDashPosition();
         }
     }
     protected virtual void DoAutoAttack()
     {
         if (enabled)
         {
-            Debug.Log("Do Auto Attack");
+            //Debug.Log("Do Auto Attack");
             Perform();
         }
     }
 
     public abstract void Perform();
-    
+
+
+    private Vector3 GetOptimalDashPosition()
+    {
+        float checkAngleStep = 10f;
+
+        Vector2 currentPosition = transform.position;
+        Vector2 optimalDashPosition = currentPosition;
+        float maxDistanceToClosestEnemy = Mathf.NegativeInfinity;
+
+        for (float angle = 0; angle < 360; angle += checkAngleStep)
+        {
+            Vector2 direction = Quaternion.Euler(0, 0, angle) * Vector2.right;
+            Vector2 potentialDashPosition = currentPosition + direction * autoDashDistance;
+
+            Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(potentialDashPosition, autoDashDistance, enemyLayer);
+
+            if (enemiesInRange.Length > 0)
+            {
+                float minDistanceToEnemy = Mathf.Infinity;
+
+                foreach (Collider2D enemyCollider in enemiesInRange)
+                {
+                    float distanceToEnemy = Vector2.Distance(potentialDashPosition, enemyCollider.transform.position);
+                    minDistanceToEnemy = Mathf.Min(minDistanceToEnemy, distanceToEnemy);
+                }
+
+                if (minDistanceToEnemy > maxDistanceToClosestEnemy)
+                {
+                    maxDistanceToClosestEnemy = minDistanceToEnemy;
+                    optimalDashPosition = potentialDashPosition;
+                }
+            }
+            else
+            {
+                return potentialDashPosition;
+            }
+        }
+
+        return (Vector3)optimalDashPosition;
+    }
 }

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1692984482214269690}
   - component: {fileID: 1692984482214269689}
   - component: {fileID: -980558469370870375}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LittleRedRidingHood
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c2dcf22f5dc1814781555db5aaff51d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 1
   randomSpeedMagnitude: 0.5
 --- !u!50 &1692984482214269690
 Rigidbody2D:
@@ -164,7 +164,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1692984482890159444}
   - component: {fileID: 1692984482890159445}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}

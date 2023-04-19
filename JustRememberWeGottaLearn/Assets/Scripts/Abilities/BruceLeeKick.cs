@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BruceLeeKick : KungFu
 {
+    public float dashDist;
     public GameObject attackAbility;
     public PushBox pushBox;
     public float forwardOffset;
@@ -11,7 +12,7 @@ public class BruceLeeKick : KungFu
     {
         base.Start();
         _stance = Stance.stance.BruceLee;
-
+        autoDashDistance = dashDist;
     }
 
     public override void Perform()
