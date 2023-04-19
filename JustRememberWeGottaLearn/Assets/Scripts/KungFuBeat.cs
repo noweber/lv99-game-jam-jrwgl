@@ -11,7 +11,8 @@ public class KungFuBeat : MonoBehaviour
     private bool isInit;
 
     public Action<Vector3, string> OnMissTextPopup;
-
+    public Stance.stance _stance;
+        
     // Start is called before the first frame update
     void Awake()
     {
@@ -34,13 +35,17 @@ public class KungFuBeat : MonoBehaviour
     {
         if (isInit)
         {
-            Debug.Log("Beat is disabled and moved back to the spawn location ");
+            //Debug.Log("Beat is disabled and moved back to the spawn location ");
             Vector3 missPosition = transform.position;
             transform.position = spawnPosition.position;
             if (!isHit)
             {
-                Debug.Log("To do, miss beat text pop up");
+                //Debug.Log("To do, miss beat text pop up");
                 OnMissTextPopup.Invoke(missPosition, "Miss");
+            }
+            else
+            {
+                OnMissTextPopup.Invoke(missPosition, "Hit");
             }
         }
 
@@ -56,7 +61,7 @@ public class KungFuBeat : MonoBehaviour
         isHit = true;
     }
 
-    public void SetInit()
+    public void Init()
     {
         isInit = true;
     }

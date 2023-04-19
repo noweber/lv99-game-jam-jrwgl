@@ -1,9 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
 
-public class TempoGenerator : MonoBehaviour
+public class TempoGenerator : Singleton<TempoGenerator>
 {
     // Start is called before the first frame update
 
@@ -14,18 +15,22 @@ public class TempoGenerator : MonoBehaviour
     private float _timeUtilNextBeat;
     private int remainBeatCount;
     private bool isGenerating;
-    private float beatPerSecond;
+    private float beatsGenerateInterval;
 
 
     private List<KungFuBeat> beatsPool = new List<KungFuBeat>();
-    private const int numBeatsInPool = 30;
+    public const int numBeatsInPool = 30;
 
     private int nextBeatToSpawn;
     private int headBeat;
+    private Stance.stance generateStanceBeats;
 
+    public Action<Stance.stance> OnHeadBeatDestroy;
     
-    private void Awake()
+
+    public override void Awake()
     {
+        base.Awake();
         isGenerating = false;
         //Populate the beats pool
         for(int i = 0; i < numBeatsInPool; i++)
@@ -35,7 +40,7 @@ public class TempoGenerator : MonoBehaviour
             beatsPool.Add(instance);
             instance.GetComponent<KungFuBeat>().SetSpawnPosition(transform);
             instance.gameObject.SetActive(false);
-            instance.GetComponent<KungFuBeat>().SetInit();
+            instance.GetComponent<KungFuBeat>().Init();
             
         }
 
@@ -46,9 +51,9 @@ public class TempoGenerator : MonoBehaviour
 
     private void Start()
     {
-        TempoReceiver.Instance.OnBeatReceived += UpdateHeadBeat;
-        TempoReceiver.Instance.OnBeatMiss += DestroyHeadbeat;
-        TryStartGenerate();
+        
+        TempoReceiver.Instance.OnBeatReceived += DestroyHeadbeat;
+        //TryStartGenerate();
     }
 
     // Update is called once per frame
@@ -68,7 +73,7 @@ public class TempoGenerator : MonoBehaviour
         //Instantiate(kungFuBeat, transform.position, Quaternion.identity);
         SpawnBeat();
         remainBeatCount -= 1;
-        _timeUtilNextBeat = beatPerSecond;
+        _timeUtilNextBeat = beatsGenerateInterval;
 
         if(remainBeatCount == 0)
         {
@@ -80,6 +85,7 @@ public class TempoGenerator : MonoBehaviour
     private void SpawnBeat()
     {
         beatsPool[nextBeatToSpawn].gameObject.SetActive(true);
+        beatsPool[nextBeatToSpawn]._stance = generateStanceBeats;
         nextBeatToSpawn++;
         nextBeatToSpawn = nextBeatToSpawn % (numBeatsInPool);
         
@@ -87,34 +93,43 @@ public class TempoGenerator : MonoBehaviour
 
     private void DestroyHeadbeat()
     {
-        Debug.Log("Destroy Head beat");
-        beatsPool[headBeat].gameObject.SetActive(false);
-        headBeat += 1;
-        headBeat = headBeat % (numBeatsInPool);
+        //Debug.Log("Destroy Head beat");
+        if (beatsPool[headBeat].gameObject.activeInHierarchy)
+        {
+            beatsPool[headBeat].gameObject.SetActive(false);
+            headBeat += 1;
+            headBeat = headBeat % (numBeatsInPool);
+            if (beatsPool[headBeat].gameObject.activeInHierarchy)
+            {
+                OnHeadBeatDestroy.Invoke(beatsPool[headBeat]._stance);
+            }
+            else
+            {
+                OnHeadBeatDestroy.Invoke(Stance.stance.Balance);
+            }
 
-    }
-
-    private void UpdateHeadBeat()
-    {
-        Debug.Log("Update head beat");
-        headBeat += 1;
-        headBeat = headBeat % (numBeatsInPool - 1);
+        }
+           
     }
 
     
-    public void TryStartGenerate()
+    public bool TryStartGenerate(Stance.stance generateStance, int numToGenerate, int _BPM)
     {
         if(isGenerating)
         {
-            Debug.LogWarning("Already generating");
-            return;
+           // Debug.LogWarning("Already generating");
+            return false;
         }
-        
+        Debug.Log("Generating at ");
+        Debug.Log(generateStance);
+
+        generateStanceBeats = generateStance;
+        BPM = _BPM;
+
         isGenerating = true;
-        beatPerSecond = BPM / 60.0f;
-       
-        remainBeatCount = numOfBeatsToGenerate;
-        _timeUtilNextBeat = beatPerSecond;
-     
+        beatsGenerateInterval = 60.0f / BPM;
+        remainBeatCount = numToGenerate;
+        _timeUtilNextBeat = beatsGenerateInterval;
+        return true;
     }
 }

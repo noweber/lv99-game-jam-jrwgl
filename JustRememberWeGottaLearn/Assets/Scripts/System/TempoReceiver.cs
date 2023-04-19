@@ -8,9 +8,9 @@ public class TempoReceiver : Singleton<TempoReceiver>
     public Action OnAutoAttack;
     public Action OnAutoDash;
     public Action OnBeatReceived;
-    public Action OnBeatMiss;
+    
 
-    public Action<Vector3, string> OnMissTextPopup;
+    //public Action<Vector3, string> OnMissTextPopup;
 
     private GameObject hasBeat;
     [SerializeField] private KeyCode autoAttackKey = KeyCode.J;
@@ -25,7 +25,7 @@ public class TempoReceiver : Singleton<TempoReceiver>
 
     public void Start()
     {
-        OnMissTextPopup += (Vector3 position, string text) => { TextPopup.Create(position, text); };
+        //OnMissTextPopup += (Vector3 position, string text) => { TextPopup.Create(position, text); };
 
 
     }
@@ -37,18 +37,14 @@ public class TempoReceiver : Singleton<TempoReceiver>
             if (hasBeat)
             {
                 hasBeat.GetComponent<KungFuBeat>().Hit();
-                hasBeat.SetActive(false);
                 OnAutoAttack.Invoke();
                 hasBeat = null;
                 OnBeatReceived.Invoke();
-
             }
             else
             {
-               
-                //To Do, destroy the head beat, and its a miss
-                OnBeatMiss.Invoke();
-                OnMissTextPopup.Invoke(transform.position, "Miss");
+                OnBeatReceived.Invoke();
+             
             }
         }
         else if (Input.GetKeyDown(autoDashKey))
@@ -56,7 +52,7 @@ public class TempoReceiver : Singleton<TempoReceiver>
             if (hasBeat)
             {
                 hasBeat.GetComponent<KungFuBeat>().Hit();
-                hasBeat.SetActive(false);
+        
                 OnAutoDash.Invoke();
                 hasBeat = null;
                 OnBeatReceived.Invoke();
@@ -64,9 +60,7 @@ public class TempoReceiver : Singleton<TempoReceiver>
             }
             else
             {
-                //Todo, destroy the head beat, and its a miss;
-                OnBeatMiss.Invoke();
-                OnMissTextPopup.Invoke(transform.position, "Miss");
+                OnBeatReceived.Invoke();
             }
         }
 
@@ -82,11 +76,8 @@ public class TempoReceiver : Singleton<TempoReceiver>
             }
             else
             {
-                //Debug.Log("Enter check zone");
-                //Destroy(collision.gameObject);
-                
+   
                 hasBeat = collision.gameObject;
-                //OnBeatReceived.Invoke();
             }
         }
     }
@@ -95,15 +86,12 @@ public class TempoReceiver : Singleton<TempoReceiver>
     {
         if (collision.gameObject.CompareTag("KungFuBeat"))
         {
-            //Debug.Log("Exit check zone");
-            //Debug.Log(collision.gameObject);
-            //Destroy the kung fu beat when it entered and exited from the check zone
-            //Destroy(collision.gameObject);
+   
             if(collision.gameObject != hasBeat)
             {
-                Debug.LogError("game object not equal to beat");
+                //Debug.LogError("game object not equal to beat");
             }
-            hasBeat.SetActive(false);
+            //hasBeat.SetActive(false);
             hasBeat = null;
             OnBeatReceived.Invoke();
 

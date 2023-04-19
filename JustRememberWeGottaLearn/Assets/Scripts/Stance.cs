@@ -1,3 +1,4 @@
+using QFSW.QC.Actions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,19 +6,14 @@ using UnityEngine;
 
 public class Stance : Singleton<Stance>
 {
-    [SerializeField] private Vector2 BalanceFreqRange;
-    [SerializeField] private Vector2 ShaolinKungFuFreqRange;
-    [SerializeField] private Vector2 WingChunFreqRange;
-    [SerializeField] private Vector2 BruceLeeFreqRange;
-    [SerializeField] private Vector2 TunaTechniqueFreqRange;
-
-    [SerializeField] private float maxTimeFrameForOOB;
-
-
-    private float _lastInFreqRangeTimeStamp;
     
     public stance currentStance;
     public Action onSwitchStance;
+
+    private List<stance> stanceList = new List<stance>();
+
+
+
     public enum stance
     {
         Balance,
@@ -31,57 +27,67 @@ public class Stance : Singleton<Stance>
     private void Awake()
     {
         currentStance = stance.Balance;
-        _lastInFreqRangeTimeStamp = Time.time;
+        
+    }
+    private void Start()
+    {
+        TempoGenerator.Instance.OnHeadBeatDestroy += DoHeadBeatDestroy;
     }
 
     private void Update()
     {
-        /*
-        
-        if (FreqInWhatStance(RhythmSystem.Instance.GetFrequency()) != currentStance)
-        {
-            currentStance = FreqInWhatStance(RhythmSystem.Instance.GetFrequency());
-            onSwitchStance.Invoke();
-        }
-        */
 
-        onSwitchStance.Invoke();
-        currentStance = stance.ShaolinKungFu;
+        //onSwitchStance.Invoke();
+        //currentStance = stance.ShaolinKungFu;
+
+        //Add stance
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            stanceList.Add(stance.ShaolinKungFu);
+                
+        }
+        else if(Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            stanceList.Add(stance.WingChun);
+        }
+
+
+        if(stanceList.Count > 0)
+        {
+            if (stanceList[0] == stance.ShaolinKungFu)
+            {
+                if (TempoGenerator.Instance.TryStartGenerate(stanceList[0], 4, 30))
+                {
+                    stanceList.RemoveAt(0);
+                }
+            }
+            else if (stanceList[0] == stance.WingChun)
+            {
+                if (TempoGenerator.Instance.TryStartGenerate(stanceList[0], 4, 120))
+                {
+                    stanceList.RemoveAt(0);
+                }
+            }
+
+
+        }
+
+
 
 
     }
 
-    private stance FreqInWhatStance(float freq)
+    private void DoHeadBeatDestroy(stance _stance)
     {
-        
-        if(freq < BalanceFreqRange[1] && freq > BalanceFreqRange[0]){
-            return stance.Balance;
-        }
-        else if (freq < ShaolinKungFuFreqRange[1] && freq > ShaolinKungFuFreqRange[0])
-        {
-            return stance.ShaolinKungFu;
-        }
-        else if (freq < WingChunFreqRange[1] && freq > WingChunFreqRange[0])
-        {
-            return stance.WingChun;
-        }
+        currentStance = _stance;
+        onSwitchStance.Invoke();
 
-        else if (freq < BruceLeeFreqRange[1] && freq > BruceLeeFreqRange[0])
-        {
-            return stance.BruceLee;
-        }
-
-        else if (freq < TunaTechniqueFreqRange[1] && freq > TunaTechniqueFreqRange[0])
-        {
-            return stance.TunaTechnique;
-        }
-
-
-
-        return stance.Balance;
     }
+
 
     
+   
+
 }
 
 
