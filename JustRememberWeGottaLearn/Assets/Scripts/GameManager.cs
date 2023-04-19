@@ -28,11 +28,13 @@ public class GameManager : Singleton<GameManager>
     //----------Game Assets------------------------
   
     [HideInInspector] public GameObject pfDamagePopup;
-
+    [HideInInspector] public GameObject pfTextPopup;
     private void LoadPrefabsFromResources()
     {
         
         pfDamagePopup = Resources.Load<GameObject>("pfDamagePopup");
-        Debug.Log(pfDamagePopup);
+        pfTextPopup = Resources.Load<GameObject>("pfTextPopup");
+        //Debug.Log(pfDamagePopup);
+        Debug.Log(pfTextPopup);
     }
 }

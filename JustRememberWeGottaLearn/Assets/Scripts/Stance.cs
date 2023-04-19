@@ -36,18 +36,24 @@ public class Stance : Singleton<Stance>
 
     private void Update()
     {
+        /*
         
         if (FreqInWhatStance(RhythmSystem.Instance.GetFrequency()) != currentStance)
         {
             currentStance = FreqInWhatStance(RhythmSystem.Instance.GetFrequency());
             onSwitchStance.Invoke();
         }
+        */
+
+        onSwitchStance.Invoke();
+        currentStance = stance.ShaolinKungFu;
 
 
     }
 
     private stance FreqInWhatStance(float freq)
     {
+        
         if(freq < BalanceFreqRange[1] && freq > BalanceFreqRange[0]){
             return stance.Balance;
         }
