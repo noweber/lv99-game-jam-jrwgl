@@ -28,8 +28,8 @@ public class TextPopup : MonoBehaviour
 
     public void Setup(string _text)
     {
-        Debug.Log("Setup text popup");
-        Debug.Log(_text);
+        //Debug.Log("Setup text popup");
+        //Debug.Log(_text);
         textMesh.SetText(_text.ToString());
         Color textColor = textMesh.color;
         textColor.a = 0;

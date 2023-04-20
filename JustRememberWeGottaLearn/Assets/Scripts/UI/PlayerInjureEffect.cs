@@ -16,6 +16,7 @@ public class PlayerInjureEffect : MonoBehaviour
     {
         originalColor = image.color;
         originalColor.a = 0.6f;
+        image.enabled = true;
     }
 
     public void Start()

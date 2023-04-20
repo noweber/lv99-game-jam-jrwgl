@@ -1,21 +1,39 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Rendering;
 using UnityEngine;
+
+public enum BPM
+{
+    bpm30 = 30,
+    bpm60 = 60,
+    bpm90 = 90,
+    bpm120 = 120,
+    bpm150 = 150,
+    bpm180 = 180,
+    bpm180plus = 300
+
+}
 
 public class TempoGenerator : Singleton<TempoGenerator>
 {
     // Start is called before the first frame update
-
-    [SerializeField] private int BPM;
-    [SerializeField] private int numOfBeatsToGenerate;
+    
+    [SerializeField] private BPM bpm;
     [SerializeField] private KungFuBeat kungFuBeat;
+    [SerializeField] private int BreathFrequency = 30;
+
+    [SerializeField] private int attackBFIncrease = 3;
+    [SerializeField] private int dashBFIncrease = 2;
+    [SerializeField] private int bfNaturalDecreaseAmount = 1;
+    [SerializeField] private float bfNaturalDecreaseTimeInterval = 0.2f;
+
+    private bool isHarmony;
+
 
     private float _timeUtilNextBeat;
-    private int remainBeatCount;
-    private bool isGenerating;
-    private float beatsGenerateInterval;
+    private float _timeUtilNextBFDecrease;
+   
 
 
     private List<KungFuBeat> beatsPool = new List<KungFuBeat>();
@@ -23,48 +41,131 @@ public class TempoGenerator : Singleton<TempoGenerator>
 
     private int nextBeatToSpawn;
     private int headBeat;
-    private Stance.stance generateStanceBeats;
-
-    public Action<Stance.stance> OnHeadBeatDestroy;
     
+ 
+    public Action<BPM> OnBpmChange;
 
     public override void Awake()
     {
         base.Awake();
-        isGenerating = false;
+        
         //Populate the beats pool
         for(int i = 0; i < numBeatsInPool; i++)
         {
 
             KungFuBeat instance = Instantiate(kungFuBeat, transform.position, Quaternion.identity);
             beatsPool.Add(instance);
-            instance.GetComponent<KungFuBeat>().SetSpawnPosition(transform);
-            instance.gameObject.SetActive(false);
-            instance.GetComponent<KungFuBeat>().Init();
+            instance.SetSpawnPosition(transform);
+            instance.OnBeatHit += SetToHarmony;
+            instance.OnBeatMiss += SetToNotHarmony;
             
+            instance.gameObject.SetActive(false);
+            instance.Init();
         }
-
         nextBeatToSpawn = 0;
         headBeat = 0;
 
     }
 
+
     private void Start()
     {
-        
+
+        //TryStartGenerate(Stance.stance.BruceLee, 100, 60);
         TempoReceiver.Instance.OnBeatReceived += DestroyHeadbeat;
         //TryStartGenerate();
+        Player.Instance.OnPlayerAttack += DoAttackBFIncrease;
+        Player.Instance.OnPlayerDash += DoDashBFIncrease; 
+
+        
+
+        bpm = BPM.bpm30;
     }
+
+    public int GetBreathFrequency()
+    {
+        return BreathFrequency;
+    }
+    private void DoAttackBFIncrease()
+    {
+        if (!isHarmony)
+        {
+            BreathFrequency += attackBFIncrease;
+            TryUpdateBPM();
+        }
+    }
+
+    private void DoDashBFIncrease()
+    {
+        if (!isHarmony)
+        {
+            BreathFrequency += dashBFIncrease;
+            TryUpdateBPM();
+        }
+    }
+
+    private void SetToHarmony()
+    {
+        isHarmony = true;
+    }
+    private void SetToNotHarmony()
+    {
+        isHarmony = false;
+    }
+
+    private void BFNaturalDecrease()
+    {
+        _timeUtilNextBFDecrease -= Time.deltaTime;
+        if (!isHarmony)
+        {
+            if (_timeUtilNextBFDecrease <= 0)
+            {
+                //Debug.Log("Natural decrese bpm");
+                _timeUtilNextBFDecrease = bfNaturalDecreaseTimeInterval;
+                BreathFrequency -= bfNaturalDecreaseAmount;
+                if(BreathFrequency < 30)
+                {
+                    BreathFrequency = 30;
+                }
+                TryUpdateBPM();
+            }
+        }
+
+    }
+    private void TryUpdateBPM()
+    {
+        BPM oldBpm = bpm;
+        if (BreathFrequency < 45)
+            bpm = BPM.bpm30;
+        else if (BreathFrequency <= 75)
+            bpm = BPM.bpm60;
+        else if (BreathFrequency <= 105)
+            bpm = BPM.bpm90;
+        else if (BreathFrequency <= 135)
+            bpm = BPM.bpm120;
+        else if (BreathFrequency <= 165)
+            bpm = BPM.bpm150;
+        else if (BreathFrequency <= 195)
+            bpm = BPM.bpm180;
+        else
+            bpm = BPM.bpm180plus;
+
+
+        if(bpm != oldBpm)
+        {
+            //bpm has changed.
+            OnBpmChange.Invoke(bpm);
+            Debug.Log("Update BPM to " + bpm.ToString());
+        }
+    }
+
 
     // Update is called once per frame
     void Update()
     {
-        if(remainBeatCount == 0)
-        {
-            return;
-        }
-        
-        if(_timeUtilNextBeat > 0)
+
+        BFNaturalDecrease();
+        if (_timeUtilNextBeat > 0)
         {
             _timeUtilNextBeat -= Time.deltaTime;
             return;
@@ -72,20 +173,22 @@ public class TempoGenerator : Singleton<TempoGenerator>
 
         //Instantiate(kungFuBeat, transform.position, Quaternion.identity);
         SpawnBeat();
-        remainBeatCount -= 1;
-        _timeUtilNextBeat = beatsGenerateInterval;
 
-        if(remainBeatCount == 0)
-        {
-            isGenerating = false;
-        }
+        //Debug.Log(bpm);
+        //Debug.Log((int)bpm);
+        
+        _timeUtilNextBeat = 60.0f / (int)bpm;
+
+      
 
     }
 
+    
     private void SpawnBeat()
     {
+        //Debug.Log("SpawnBeat");
         beatsPool[nextBeatToSpawn].gameObject.SetActive(true);
-        beatsPool[nextBeatToSpawn]._stance = generateStanceBeats;
+       
         nextBeatToSpawn++;
         nextBeatToSpawn = nextBeatToSpawn % (numBeatsInPool);
         
@@ -99,37 +202,12 @@ public class TempoGenerator : Singleton<TempoGenerator>
             beatsPool[headBeat].gameObject.SetActive(false);
             headBeat += 1;
             headBeat = headBeat % (numBeatsInPool);
-            if (beatsPool[headBeat].gameObject.activeInHierarchy)
-            {
-                OnHeadBeatDestroy.Invoke(beatsPool[headBeat]._stance);
-            }
-            else
-            {
-                OnHeadBeatDestroy.Invoke(Stance.stance.Balance);
-            }
+            
 
         }
            
     }
 
     
-    public bool TryStartGenerate(Stance.stance generateStance, int numToGenerate, int _BPM)
-    {
-        if(isGenerating)
-        {
-           // Debug.LogWarning("Already generating");
-            return false;
-        }
-        Debug.Log("Generating at ");
-        Debug.Log(generateStance);
-
-        generateStanceBeats = generateStance;
-        BPM = _BPM;
-
-        isGenerating = true;
-        beatsGenerateInterval = 60.0f / BPM;
-        remainBeatCount = numToGenerate;
-        _timeUtilNextBeat = beatsGenerateInterval;
-        return true;
-    }
+   
 }

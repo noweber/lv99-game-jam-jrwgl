@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TerrainTools;
 
 public class KungFuBeat : MonoBehaviour
 {
@@ -11,20 +12,39 @@ public class KungFuBeat : MonoBehaviour
     private bool isInit;
 
     public Action<Vector3, string> OnMissTextPopup;
-    public Stance.stance _stance;
-        
+
+
+    public Action OnBeatMiss;
+    public Action OnBeatHit;
+
+    private SpriteRenderer _sprite;
+
     // Start is called before the first frame update
     void Awake()
     {
         isHit = false;
         isInit = false;
+        _sprite = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
     {
         OnMissTextPopup += (Vector3 position, string text) => { TextPopup.Create(position, text); };
+        TempoGenerator.Instance.OnBpmChange += DoChangeBeatColor;
     }
 
+    private void DoChangeBeatColor(BPM bpm)
+    {
+        if(bpm == BPM.bpm180plus)
+        {
+            Debug.Log("Do change color");
+            _sprite.color = Color.red;
+        }
+        else
+        {
+            _sprite.color = Color.white;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -41,11 +61,13 @@ public class KungFuBeat : MonoBehaviour
             if (!isHit)
             {
                 //Debug.Log("To do, miss beat text pop up");
+                OnBeatMiss.Invoke();
                 OnMissTextPopup.Invoke(missPosition, "Miss");
             }
             else
             {
-                OnMissTextPopup.Invoke(missPosition, "Hit");
+                OnBeatHit.Invoke();
+                OnMissTextPopup.Invoke(missPosition, "Breath");
             }
         }
 

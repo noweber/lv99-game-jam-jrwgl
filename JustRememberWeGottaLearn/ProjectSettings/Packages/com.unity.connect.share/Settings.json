@@ -21,7 +21,7 @@
             {
                 "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "buildOutputDirList",
-                "value": "{\"m_Value\":\"D:/GameJam/lv99-game-jam-jrwgl/JustRememberWeGottaLearn/WebGL Builds;;;;;;;;;\"}"
+                "value": "{\"m_Value\":\"D:/lv99/lv99-game-jam-jrwgl/JustRememberWeGottaLearn/WebGL Builds;D:/GameJam/lv99-game-jam-jrwgl/JustRememberWeGottaLearn/WebGL Builds;;;;;;;;\"}"
             }
         ]
     }

@@ -7,9 +7,9 @@ public class Shaolin : KungFu
     [SerializeField] private float dashDist;
 
     public GameObject attackAbility;
-    protected override void Start()
+    private void Awake()
     {
-        base.Start();
+        
         _stance = Stance.stance.ShaolinKungFu;
         autoDashDistance = dashDist;
     }

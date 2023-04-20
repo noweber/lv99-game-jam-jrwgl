@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2125cac6edc36594084386de5fac7303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 2
+  damage: 1
   rateOfFireInSeconds: 1
 --- !u!114 &1692984482214269686
 MonoBehaviour:
@@ -64,7 +64,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a2e878fdb16706489c113dffab7de79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoints: 4
+  hitPoints: 6
   hitPointsText: {fileID: 0}
   damageText: {fileID: 168693653855988796, guid: 7a207ec32f7e177489d57e8383905ea8, type: 3}
 --- !u!114 &4310261610617928273
@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c2dcf22f5dc1814781555db5aaff51d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 6
   randomSpeedMagnitude: 0.5
 --- !u!50 &1692984482214269690
 Rigidbody2D:

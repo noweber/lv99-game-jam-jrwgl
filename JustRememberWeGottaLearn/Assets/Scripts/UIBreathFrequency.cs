@@ -16,6 +16,6 @@ public class UIBreathFrequency : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _textMesh.text = RhythmSystem.Instance.GetFrequency().ToString();
+        _textMesh.text = "BPM: " + TempoGenerator.Instance.GetBreathFrequency().ToString();
     }
 }
