@@ -46,6 +46,18 @@ namespace Assets.Scripts.Damage
         {
             //Debug.Log(MethodBase.GetCurrentMethod().DeclaringType.Name + "::" + MethodBase.GetCurrentMethod());
             hitPoints -= damage;
+            if (this.gameObject.tag == "Player")
+            {
+                AudioManager.instance.RequestSFX(SFXTYPE.health_reduction);
+            }
+            else if (this.gameObject.tag == "Enemy")
+            {
+                AudioManager.instance.RequestSFX(SFXTYPE.player_attack);
+            }
+            if (hitPoints <=0)
+            {
+                AudioManager.instance.gameObject.SetActive(false);
+            }
             //Debug.Log("Damage: " + damage);
             UpdateHitPoints();
 
