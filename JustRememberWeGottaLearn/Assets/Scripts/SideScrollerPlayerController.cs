@@ -8,16 +8,23 @@ public class SideScrollerPlayerController : MonoBehaviour
     [SerializeField] private float maxSprintMultiplier = 2f; // Maximum speed multiplier when sprinting
     [SerializeField] private float sprintStaminaCost = 1f; // Stamina cost per second while sprinting
     [SerializeField] private float sprintStaminaRecoveryRate = 0.5f; // Stamina recovery rate per second when not sprinting
-    [SerializeField] private float dashDistance = 5f; // Dash distance
-    [SerializeField] private float dashCooldown = 2f; // Dash cooldown
+    [SerializeField] private float dashDistance; // Dash distance
+    [SerializeField] private float dashSpeed; // Dash distance
+    [SerializeField] private float dashTime; // Dash time
+    [SerializeField] private float dashAfterImageDistance; // image between after images
+    [SerializeField] private float dashCooldown; // Dash cooldown
     [SerializeField] private TextMeshProUGUI staminaText;
     private Rigidbody2D rb;
     private float moveInput;
     private bool isGrounded;
     private bool isSprinting;
+    private bool isDashing;
     private float sprintMultiplier = 1f;
     private float sprintStamina = 100f;
     private float sprintMaxStamina = 100f;
+    private float dashTimeLeft;
+    private float lastImageXpos;
+    private float lastDash = -100f;
 
     private void Awake()
     {
@@ -32,6 +39,16 @@ public class SideScrollerPlayerController : MonoBehaviour
         {
             Jump();
         }
+
+
+        if(Input.GetButtonDown("Dash"))
+        {
+            if (Time.time >= (lastDash += dashCooldown))
+                Attemp2Dash();
+
+        }
+
+        checkDash();
 
         // Update sprinting and stamina
         if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -58,6 +75,7 @@ public class SideScrollerPlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         // Move the character
+        if(!isDashing)
         rb.velocity = new Vector2(moveInput * speed * sprintMultiplier, rb.velocity.y);
     }
 
@@ -77,6 +95,41 @@ public class SideScrollerPlayerController : MonoBehaviour
         {
             isGrounded = false;
         }
+    }
+
+    private void Attemp2Dash()
+    {
+
+        isDashing = true;
+        dashTimeLeft = dashTime;
+        lastDash = Time.time;
+
+        PlayerAfterImagePool.Instance.GetFromPool();
+    }
+
+    private void checkDash()
+    {
+        if (isDashing)
+        {
+            if (dashTimeLeft > 0)
+            {
+                rb.velocity = new Vector2(dashSpeed, rb.velocity.y);
+                dashTimeLeft -= Time.deltaTime;
+            }
+
+            if(Mathf.Abs(transform.position.x - lastImageXpos) > dashAfterImageDistance)
+            {
+                PlayerAfterImagePool.Instance.GetFromPool();
+                lastImageXpos = transform.position.x;
+            }
+
+            if (dashTimeLeft < 0)
+            {
+                isDashing = false;
+            }
+        }
+
+
     }
 
     private void Jump()
