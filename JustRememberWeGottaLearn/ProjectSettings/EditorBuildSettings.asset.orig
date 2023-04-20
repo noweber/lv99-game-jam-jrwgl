@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+<<<<<<< HEAD
+    path: Assets/Scenes/Start Scene.unity
+    guid: fabef81058e222e41bf5cb6a621bc8b5
+  - enabled: 1
+    path: Assets/Scenes/Play.unity
+    guid: b09ad9ed35c1e41409162bc7f6fd2426
+  - enabled: 1
+    path: Assets/Scenes/NicholasTestScene.unity
+    guid: 40faf708d5f018f47a0d67f6bd52a430
+  - enabled: 1
+    path: Assets/Scenes/LihaoTestScene.unity
+    guid: 92d100d6ce310e14fa7e6534ee0d3c65
+  - enabled: 1
+    path: Assets/Scenes/JinqiTestScene.unity
+    guid: 7374a51c916d72b41a7dd26f394b339a
+  - enabled: 1
+    path: Assets/Scenes/Retry Scene.unity
+    guid: 70a1a5ce339dbd242ba985d93b057888
+=======
+    path: Assets/Scenes/LihaoTestScene.unity
+    guid: 92d100d6ce310e14fa7e6534ee0d3c65
+>>>>>>> 2061e4736b4176271f14b4fa59951feaa81bc22f
+  m_configObjects: {}
