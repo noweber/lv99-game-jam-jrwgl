@@ -54,7 +54,7 @@ namespace Assets.Scripts.Damage
             {
                 AudioManager.instance.RequestSFX(SFXTYPE.player_attack);
             }
-            if (hitPoints <=0)
+            if (hitPoints <=0 && this.gameObject.CompareTag("Player"))
             {
                 AudioManager.instance.gameObject.SetActive(false);
             }

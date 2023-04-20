@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -20,12 +21,15 @@ public class TopDownPlayerController : MonoBehaviour
     private Vector2 moveDirection;
     
     public PlayerFaceDirection _currFaceDir;
-    
+
+    public Action<Vector3> OnPlayerMove;
+    private Vector3 playerLastPosition;
    
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         _currFaceDir = PlayerFaceDirection.right;
+        playerLastPosition = transform.position;
     }
 
     private void Start()
@@ -56,14 +60,23 @@ public class TopDownPlayerController : MonoBehaviour
         if (isTakingBreath)
         {
             rb.velocity = moveDirection * speedWhenTakingBreath;
+            OnPlayerMove?.Invoke(transform.position - playerLastPosition);
+            playerLastPosition = transform.position;
         }
         else
         {
             rb.velocity = moveDirection * speed;
-
+            OnPlayerMove?.Invoke(transform.position - playerLastPosition);
+            playerLastPosition = transform.position;
         }
     }
 
+    public void MoveToPosition(Vector3 newPosition)
+    {
+        rb.MovePosition(rb.position + (Vector2)newPosition);
+        OnPlayerMove?.Invoke(transform.position - playerLastPosition);
+        playerLastPosition = transform.position;
+    }
     private void HandleTakeBreath()
     {
         isTakingBreath = true;

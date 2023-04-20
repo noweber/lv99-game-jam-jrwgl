@@ -55,16 +55,17 @@ public abstract class KungFu : MonoBehaviour
             switch (dashDirection)
             {
                 case PlayerFaceDirection.right:
-                    transform.position += Vector3.right * autoDashDistance;
+                    //transform.position += Vector3.right * autoDashDistance;
+                    Player.Instance.playerController.MoveToPosition(Vector3.right * autoDashDistance);
                     break;
                 case PlayerFaceDirection.left:
-                    transform.position += Vector3.left * autoDashDistance;
+                    Player.Instance.playerController.MoveToPosition(Vector3.left * autoDashDistance);
                     break;
                 case PlayerFaceDirection.up:
-                    transform.position += Vector3.up * autoDashDistance;
+                    Player.Instance.playerController.MoveToPosition(Vector3.up * autoDashDistance);
                     break;
                 case PlayerFaceDirection.down:
-                    transform.position += Vector3.down * autoDashDistance;
+                    Player.Instance.playerController.MoveToPosition(Vector3.down * autoDashDistance);
                     break;
             }
         }
