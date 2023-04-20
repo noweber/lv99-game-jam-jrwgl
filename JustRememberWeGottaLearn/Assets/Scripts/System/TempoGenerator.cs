@@ -27,12 +27,14 @@ public class TempoGenerator : Singleton<TempoGenerator>
     [SerializeField] private int dashBFIncrease = 2;
     [SerializeField] private int bfNaturalDecreaseAmount = 1;
     [SerializeField] private float bfNaturalDecreaseTimeInterval = 0.2f;
+    [SerializeField] private float TakeDeepBreathInterval = 0.05f;
 
     private bool isHarmony;
 
 
     private float _timeUtilNextBeat;
     private float _timeUtilNextBFDecrease;
+    private float _timeUtilNextDeepBreath;
    
 
 
@@ -41,7 +43,7 @@ public class TempoGenerator : Singleton<TempoGenerator>
 
     private int nextBeatToSpawn;
     private int headBeat;
-    
+    private bool isTakingDeepBreath;
  
     public Action<BPM> OnBpmChange;
 
@@ -75,11 +77,20 @@ public class TempoGenerator : Singleton<TempoGenerator>
         TempoReceiver.Instance.OnBeatReceived += DestroyHeadbeat;
         //TryStartGenerate();
         Player.Instance.OnPlayerAttack += DoAttackBFIncrease;
-        Player.Instance.OnPlayerDash += DoDashBFIncrease; 
-
+        Player.Instance.OnPlayerDash += DoDashBFIncrease;
+        Player.Instance.OnTakeDeepBreath += HandleTakeBreath;
+        Player.Instance.OnStopTakeBreath += HandleStopTakingBreath;
         
 
         bpm = BPM.bpm30;
+    }
+    private void HandleTakeBreath()
+    {
+        isTakingDeepBreath = true;
+    }
+    private void HandleStopTakingBreath()
+    {
+        isTakingDeepBreath = false;
     }
 
     public int GetBreathFrequency()
@@ -132,6 +143,29 @@ public class TempoGenerator : Singleton<TempoGenerator>
         }
 
     }
+
+    private void TakeDeepBreath()
+    {
+        _timeUtilNextDeepBreath -= Time.deltaTime;
+        isHarmony = true;
+
+        if(_timeUtilNextDeepBreath <= 0)
+        {
+            if(bpm == BPM.bpm180plus)
+                _timeUtilNextDeepBreath = TakeDeepBreathInterval * 10;
+            else
+                _timeUtilNextDeepBreath = TakeDeepBreathInterval;
+            
+            BreathFrequency -= 1;
+            if(BreathFrequency <30)
+            {
+                BreathFrequency = 30;
+            }
+            TryUpdateBPM();
+        }
+    }
+
+
     private void TryUpdateBPM()
     {
         BPM oldBpm = bpm;
@@ -157,14 +191,26 @@ public class TempoGenerator : Singleton<TempoGenerator>
             OnBpmChange.Invoke(bpm);
             Debug.Log("Update BPM to " + bpm.ToString());
         }
+        if(bpm == BPM.bpm180plus && !isTakingDeepBreath)
+        {
+            //Try to discourage player to go over the breath limit.
+            BreathFrequency += 20;
+        }
     }
 
 
     // Update is called once per frame
     void Update()
     {
+        if (isTakingDeepBreath)
+        {
+            TakeDeepBreath();
+        }
+        else if(bpm != BPM.bpm180plus)
+        {
+            BFNaturalDecrease();
+        }
 
-        BFNaturalDecrease();
         if (_timeUtilNextBeat > 0)
         {
             _timeUtilNextBeat -= Time.deltaTime;
@@ -208,6 +254,17 @@ public class TempoGenerator : Singleton<TempoGenerator>
            
     }
 
-    
-   
+    public void DoCleanUp()
+    {
+        
+        foreach(KungFuBeat kfbeat in beatsPool)
+        {
+            kfbeat.DoBeforeDestroy();
+        }
+        
+        DG.Tweening.DOTween.KillAll();
+    }
+
+
+
 }

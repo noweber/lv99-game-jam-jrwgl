@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerInjureEffect : MonoBehaviour
+public class PlayerOOBEffect : MonoBehaviour
 {
     public Color originalColor;
     public Image image;
@@ -19,34 +19,22 @@ public class PlayerInjureEffect : MonoBehaviour
         image.enabled = true;
     }
 
-    public void Start()
+    private void Start()
     {
-        TryInitializeEvent();
+        TempoGenerator.Instance.OnBpmChange += TiggerEffect;
     }
 
-    public void OnEnable()
-    {
-        TryInitializeEvent();
-    }
-
-    public void TryInitializeEvent()
-    {
-        if (_eventInitialized)
-            return;
-      
-        Player.Instance.GetComponent<HurtBox>().OnPlayerReceiveDmg += TiggerEffect;
-    }
-    public void OnDisable()
-    {
-        if(Player.Instance.GetComponent<HurtBox>())
-            Player.Instance.GetComponent<HurtBox>().OnPlayerReceiveDmg -= TiggerEffect;
-        _eventInitialized = false;
-    }
-
-    public void TiggerEffect()
+    public void TiggerEffect(BPM bpm)
     {
         //Debug.Log("Triggered injure effects");
-        timeRemaining = 0.4f;
+        if (bpm == BPM.bpm180plus)
+        {
+            timeRemaining = 100.0f;
+        }
+        else
+        {
+            timeRemaining = 0.0f;
+        }
     }
     private void Update()
     {

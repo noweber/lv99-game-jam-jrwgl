@@ -8,54 +8,60 @@ public class Player : Singleton<Player>
 {
     [SerializeField] private int dmgWhenOverBF = 1;
 
-    public AbilitySpawner abilitySpawner;
     public Action OnPlayerAttack;
     public Action OnPlayerDash;
-
-    private BPM currentBPM;
-    private HurtBox hurtBox;
+    public Action OnTakeDeepBreath;
+    public Action OnStopTakeBreath;
+    
+    public HurtBox playerHurtBox;
+    public Rigidbody2D playerRB;
+    public TopDownPlayerController playerController;
 
     [SerializeField] private KeyCode attackKey = KeyCode.Space;
     [SerializeField] private KeyCode dashKey = KeyCode.LeftShift;
+    [SerializeField] private KeyCode takeDeepBreathKey = KeyCode.B;
 
+    private bool isTakingBreath;
     public override void Awake()
     {
         base.Awake();
-        abilitySpawner = GetComponent<AbilitySpawner>();
-    }
+        isTakingBreath = false;
+        playerHurtBox = GetComponent<HurtBox>();
+        playerRB = GetComponent<Rigidbody2D>();
+        playerController = GetComponent<TopDownPlayerController>();
 
-    public void Start()
-    {
-        TempoGenerator.Instance.OnBpmChange += SetCurrentBPM;
-        hurtBox = GetComponent<HurtBox>();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(attackKey))
+        playerController.SetMoveDirection(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+        if (Input.GetKeyDown(takeDeepBreathKey))
         {
-            if(currentBPM == BPM.bpm180plus)
+            OnTakeDeepBreath.Invoke();
+            isTakingBreath = true;
+        }
+        else if (Input.GetKeyUp(takeDeepBreathKey))
+        {
+            OnStopTakeBreath.Invoke();
+            isTakingBreath = false;
+        }
+        else if (Input.GetKeyDown(attackKey))
+        {
+            if (!isTakingBreath)
             {
-                hurtBox.TakeDamage(dmgWhenOverBF);
+                OnPlayerAttack.Invoke();
             }
-            OnPlayerAttack.Invoke();
         }
         else if (Input.GetKeyDown(dashKey))
         {
-            if (currentBPM == BPM.bpm180plus)
+            if (!isTakingBreath)
             {
-                hurtBox.TakeDamage(dmgWhenOverBF);
+                OnPlayerDash.Invoke();
             }
-
-            OnPlayerDash.Invoke();
         }
+        
+
     }
-
-    private void SetCurrentBPM(BPM bpm)
-    {
-        currentBPM = bpm;
-    }
-
-
 
 }

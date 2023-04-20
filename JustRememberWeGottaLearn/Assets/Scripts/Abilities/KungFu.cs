@@ -10,7 +10,6 @@ public abstract class KungFu : MonoBehaviour
     protected Stance.stance _stance;
     protected float autoDashDistance = 1.0f;
 
-
     protected virtual void Start()
     {
         enabled = false;

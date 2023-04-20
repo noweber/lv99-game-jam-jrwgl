@@ -35,6 +35,6 @@ public class GameManager : Singleton<GameManager>
         pfDamagePopup = Resources.Load<GameObject>("pfDamagePopup");
         pfTextPopup = Resources.Load<GameObject>("pfTextPopup");
         //Debug.Log(pfDamagePopup);
-        Debug.Log(pfTextPopup);
+        //Debug.Log(pfTextPopup);
     }
 }

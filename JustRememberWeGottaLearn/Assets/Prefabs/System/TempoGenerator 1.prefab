@@ -44,6 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4b79ebbe0de4bb46b5cfb1e4ff47df9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BPM: 30
-  numOfBeatsToGenerate: 1000
+  bpm: 0
   kungFuBeat: {fileID: 3521766409344986558, guid: 9028c43b286dbc749b2aef625989b7b5, type: 3}
+  BreathFrequency: 30
+  attackBFIncrease: 3
+  dashBFIncrease: 2
+  bfNaturalDecreaseAmount: 1
+  bfNaturalDecreaseTimeInterval: 2
+  TakeDeepBreathInterval: 0.08

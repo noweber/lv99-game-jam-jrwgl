@@ -57,17 +57,19 @@ public class KungFuBeat : MonoBehaviour
         {
             //Debug.Log("Beat is disabled and moved back to the spawn location ");
             Vector3 missPosition = transform.position;
-            transform.position = spawnPosition.position;
+            if(spawnPosition)//Clean up code
+                transform.position = spawnPosition.position;
+            
             if (!isHit)
             {
                 //Debug.Log("To do, miss beat text pop up");
                 OnBeatMiss.Invoke();
-                OnMissTextPopup.Invoke(missPosition, "Miss");
+                OnMissTextPopup?.Invoke(missPosition, "Miss");
             }
             else
             {
                 OnBeatHit.Invoke();
-                OnMissTextPopup.Invoke(missPosition, "Breath");
+                OnMissTextPopup?.Invoke(missPosition, "Breath");
             }
         }
 
@@ -87,7 +89,12 @@ public class KungFuBeat : MonoBehaviour
     {
         isInit = true;
     }
+    public void DoBeforeDestroy()
+    {
+        isInit = false;
+    }
 
+    
     public void SetSpawnPosition(Transform _spawnPosition)
     {
         spawnPosition = _spawnPosition;

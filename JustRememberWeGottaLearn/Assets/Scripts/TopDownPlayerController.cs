@@ -13,48 +13,63 @@ public enum PlayerFaceDirection
 public class TopDownPlayerController : MonoBehaviour
 {
     [SerializeField] private float speed = 5f; // Movement speed
+    [SerializeField] private float speedWhenTakingBreath = 1.0f;
    
+    private bool isTakingBreath;
     private Rigidbody2D rb;
-    private Vector2 moveInput;
+    private Vector2 moveDirection;
     
     public PlayerFaceDirection _currFaceDir;
     
+   
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         _currFaceDir = PlayerFaceDirection.right;
     }
 
-    private void Update()
+    private void Start()
     {
-        // Handle input
-        float moveInputHorizontal = Input.GetAxisRaw("Horizontal");
-        float moveInputVertical = Input.GetAxisRaw("Vertical");
+        Player.Instance.OnTakeDeepBreath += HandleTakeBreath;
+        Player.Instance.OnStopTakeBreath += HandleStopTakeBreath;
+    }
+    public void SetMoveDirection(float moveInputHorizontal, float moveInputVertical)
+    {
+        moveDirection = new Vector2(moveInputHorizontal, moveInputVertical).normalized;
 
-        moveInput = new Vector2(moveInputHorizontal, moveInputVertical).normalized;
-
-        if(moveInputHorizontal < 0)
+        if (moveInputHorizontal < 0)
             _currFaceDir = PlayerFaceDirection.left;
-        
-        if(moveInputHorizontal > 0)
+
+        if (moveInputHorizontal > 0)
             _currFaceDir = PlayerFaceDirection.right;
 
-        if(moveInputVertical < 0)
+        if (moveInputVertical < 0)
             _currFaceDir = PlayerFaceDirection.down;
 
         if (moveInputVertical > 0)
             _currFaceDir = PlayerFaceDirection.up;
-
-
     }
 
     private void FixedUpdate()
     {
         // Move the character
-        //rb.velocity = new Vector2(moveInput * speed * sprintMultiplier, rb.velocity.y);
-        rb.velocity = moveInput * speed;
+        if (isTakingBreath)
+        {
+            rb.velocity = moveDirection * speedWhenTakingBreath;
+        }
+        else
+        {
+            rb.velocity = moveDirection * speed;
 
-
+        }
     }
 
+    private void HandleTakeBreath()
+    {
+        isTakingBreath = true;
+    }
+    private void HandleStopTakeBreath()
+    {
+        isTakingBreath = false;
+    }
 }
