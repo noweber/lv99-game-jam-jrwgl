@@ -12,7 +12,8 @@ public class TempoReceiver : Singleton<TempoReceiver>
 
     //public Action<Vector3, string> OnMissTextPopup;
 
-    private GameObject hasBeat;
+    //private GameObject hasBeat;
+    private List<KungFuBeat> beats = new List<KungFuBeat>();
     [SerializeField] private KeyCode autoAttackKey = KeyCode.J;
     [SerializeField] private KeyCode autoDashKey = KeyCode.K;
 
@@ -20,7 +21,7 @@ public class TempoReceiver : Singleton<TempoReceiver>
     public override void Awake()
     {
         base.Awake();
-        hasBeat = null;
+        //hasBeat = null;
     }
 
     public void Start()
@@ -30,19 +31,17 @@ public class TempoReceiver : Singleton<TempoReceiver>
         Player.Instance.OnPlayerDash += DoDashBeatReceive; 
 
     }
-    private void Update()
-    {
-     
-      
-
-    }
-
+   
     private void DoAttackBeatReceive()
     {
-        if (hasBeat)
+        //if (hasBeat)
+        if(beats.Count != 0)
         {
-            hasBeat.GetComponent<KungFuBeat>().Hit();
-            hasBeat = null;
+            //hasBeat.GetComponent<KungFuBeat>().Hit();
+            //hasBeat = null;
+            KungFuBeat beat = beats[0];
+            //beats.RemoveAt(0);
+            beat.Hit();
             OnBeatReceived.Invoke();
         }
         else
@@ -55,12 +54,14 @@ public class TempoReceiver : Singleton<TempoReceiver>
 
     private void DoDashBeatReceive()
     {
-        if (hasBeat)
+        if (beats.Count != 0)
         {
-            hasBeat.GetComponent<KungFuBeat>().Hit();
-            hasBeat = null;
+            //hasBeat.GetComponent<KungFuBeat>().Hit();
+            //hasBeat = null;
+            KungFuBeat beat = beats[0];
+            //beats.RemoveAt(0);
+            beat.Hit();
             OnBeatReceived.Invoke();
-
         }
         else
         {
@@ -74,6 +75,7 @@ public class TempoReceiver : Singleton<TempoReceiver>
         
         if (collision.gameObject.CompareTag("KungFuBeat"))
         {
+            /*
             if (hasBeat)
             {
                 Debug.LogError("Two beat can not exist in Tempo zone at the same time");
@@ -83,6 +85,9 @@ public class TempoReceiver : Singleton<TempoReceiver>
    
                 hasBeat = collision.gameObject;
             }
+            */
+
+            beats.Add(collision.gameObject.GetComponent<KungFuBeat>());
         }
     }
 
@@ -90,7 +95,7 @@ public class TempoReceiver : Singleton<TempoReceiver>
     {
         if (collision.gameObject.CompareTag("KungFuBeat"))
         {
-   
+            /*
             if(collision.gameObject != hasBeat)
             {
                 //Debug.LogError("game object not equal to beat");
@@ -98,7 +103,9 @@ public class TempoReceiver : Singleton<TempoReceiver>
             //hasBeat.SetActive(false);
             hasBeat = null;
             OnBeatReceived.Invoke();
-
+            */
+            beats.RemoveAt(0);
+            OnBeatReceived.Invoke();
         }
     }
 

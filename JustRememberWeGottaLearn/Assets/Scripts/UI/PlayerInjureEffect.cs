@@ -21,28 +21,12 @@ public class PlayerInjureEffect : MonoBehaviour
 
     public void Start()
     {
-        TryInitializeEvent();
-    }
-
-    public void OnEnable()
-    {
-        TryInitializeEvent();
-    }
-
-    public void TryInitializeEvent()
-    {
-        if (_eventInitialized)
-            return;
-      
+        
         Player.Instance.GetComponent<HurtBox>().OnPlayerReceiveDmg += TiggerEffect;
     }
-    public void OnDisable()
-    {
-        if(Player.Instance.GetComponent<HurtBox>())
-            Player.Instance.GetComponent<HurtBox>().OnPlayerReceiveDmg -= TiggerEffect;
-        _eventInitialized = false;
-    }
-
+    
+    
+    
     public void TiggerEffect()
     {
         //Debug.Log("Triggered injure effects");

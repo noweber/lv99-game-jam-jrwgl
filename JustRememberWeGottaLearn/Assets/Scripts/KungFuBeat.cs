@@ -53,48 +53,42 @@ public class KungFuBeat : MonoBehaviour
 
     private void OnDisable()
     {
-        if (isInit)
-        {
-            //Debug.Log("Beat is disabled and moved back to the spawn location ");
-            Vector3 missPosition = transform.position;
-            if(spawnPosition)//Clean up code
-                transform.position = spawnPosition.position;
-            
-            if (!isHit)
-            {
-                //Debug.Log("To do, miss beat text pop up");
-                OnBeatMiss.Invoke();
-                OnMissTextPopup?.Invoke(missPosition, "Miss");
-            }
-            else
-            {
-                OnBeatHit.Invoke();
-                OnMissTextPopup?.Invoke(missPosition, "Breath");
-            }
-        }
-
+        TempoGenerator.Instance.OnBpmChange -= DoChangeBeatColor;
     }
-
     private void OnEnable()
     {
+        TempoGenerator.Instance.OnBpmChange += DoChangeBeatColor;
         isHit = false;
-        
+
     }
+
+    public void Hide()
+    {
+        //Debug.Log("Beat is disabled and moved back to the spawn location ");
+        Vector3 missPosition = transform.position;
+        if (spawnPosition)//Clean up code
+            transform.position = spawnPosition.position;
+
+        if (!isHit)
+        {
+            //Debug.Log("To do, miss beat text pop up");
+            OnBeatMiss.Invoke();
+            //OnMissTextPopup?.Invoke(missPosition, "Miss");
+        }
+        else
+        {
+            OnBeatHit.Invoke();
+            OnMissTextPopup?.Invoke(missPosition, "Breath");
+        }
+        gameObject.SetActive(false);
+
+    }
+
+    
     public void Hit()
     {
         isHit = true;
     }
-
-    public void Init()
-    {
-        isInit = true;
-    }
-    public void DoBeforeDestroy()
-    {
-        isInit = false;
-    }
-
-    
     public void SetSpawnPosition(Transform _spawnPosition)
     {
         spawnPosition = _spawnPosition;

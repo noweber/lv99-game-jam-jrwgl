@@ -22,8 +22,10 @@ public class PlayerOOBEffect : MonoBehaviour
     private void Start()
     {
         TempoGenerator.Instance.OnBpmChange += TiggerEffect;
+        //Player.Instance.GetComponent<HurtBox>().OnPlayerReceiveDmg += TiggerEffect;
     }
 
+    
     public void TiggerEffect(BPM bpm)
     {
         //Debug.Log("Triggered injure effects");
@@ -36,6 +38,13 @@ public class PlayerOOBEffect : MonoBehaviour
             timeRemaining = 0.0f;
         }
     }
+    /*
+    public void TiggerEffect()
+    {
+        //Debug.Log("Triggered injure effects");
+        timeRemaining = 0.4f;
+    }
+    */
     private void Update()
     {
         Color transparent = originalColor;

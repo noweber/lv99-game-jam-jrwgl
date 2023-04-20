@@ -62,7 +62,7 @@ public class TempoGenerator : Singleton<TempoGenerator>
             instance.OnBeatMiss += SetToNotHarmony;
             
             instance.gameObject.SetActive(false);
-            instance.Init();
+            //instance.Init();
         }
         nextBeatToSpawn = 0;
         headBeat = 0;
@@ -245,7 +245,8 @@ public class TempoGenerator : Singleton<TempoGenerator>
         //Debug.Log("Destroy Head beat");
         if (beatsPool[headBeat].gameObject.activeInHierarchy)
         {
-            beatsPool[headBeat].gameObject.SetActive(false);
+            //beatsPool[headBeat].gameObject.SetActive(false);
+            beatsPool[headBeat].Hide();
             headBeat += 1;
             headBeat = headBeat % (numBeatsInPool);
             
@@ -254,17 +255,5 @@ public class TempoGenerator : Singleton<TempoGenerator>
            
     }
 
-    public void DoCleanUp()
-    {
-        
-        foreach(KungFuBeat kfbeat in beatsPool)
-        {
-            kfbeat.DoBeforeDestroy();
-        }
-        
-        DG.Tweening.DOTween.KillAll();
-    }
-
-
-
+  
 }

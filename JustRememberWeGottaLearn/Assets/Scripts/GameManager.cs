@@ -10,7 +10,7 @@ public class GameManager : Singleton<GameManager>
    
     private void Initialization()
     {
-       
+        Player.Instance.playerHurtBox.OnPlayerReceiveDmg += OnPlayerDeath;
     }
     
     private void Start()
@@ -36,5 +36,15 @@ public class GameManager : Singleton<GameManager>
         pfTextPopup = Resources.Load<GameObject>("pfTextPopup");
         //Debug.Log(pfDamagePopup);
         //Debug.Log(pfTextPopup);
+    }
+
+    private void OnPlayerDeath()
+    {
+        if(Player.Instance.playerHurtBox.GetHitPoints() <= 0)
+        {
+            //Player Death
+            DG.Tweening.DOTween.KillAll();
+            SceneManager.LoadScene("Retry Scene");
+        }
     }
 }
