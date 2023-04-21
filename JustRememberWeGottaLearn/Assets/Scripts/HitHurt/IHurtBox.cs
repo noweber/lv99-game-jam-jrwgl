@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Assets.Scripts.Damage
+namespace Assets.Scripts.HitHurt
 {
     public interface IHurtBox
     {

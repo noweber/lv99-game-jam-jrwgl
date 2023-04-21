@@ -1,4 +1,4 @@
-using Assets.Scripts.Damage;
+using Assets.Scripts.HitHurt;
 using UnityEngine;
 
 public class MoveTowardsPlayer : MonoBehaviour
@@ -55,10 +55,8 @@ public class MoveTowardsPlayer : MonoBehaviour
         if (remainOnAirTime <= 0)
         {
             Debug.Log("OnAir");
-            //Debug.Log(remainOnAirTime);
             remainOnAirTime = onAirTime;
             collisionDamage = damage;
-            //Debug.Log(remainOnAirTime);
         }
     }
 

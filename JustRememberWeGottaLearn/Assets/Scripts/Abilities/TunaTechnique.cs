@@ -1,6 +1,4 @@
-using Assets.Scripts.Damage;
-using System.Collections;
-using System.Collections.Generic;
+using Assets.Scripts.HitHurt;
 using UnityEngine;
 
 public class TunaTechnique : KungFu
