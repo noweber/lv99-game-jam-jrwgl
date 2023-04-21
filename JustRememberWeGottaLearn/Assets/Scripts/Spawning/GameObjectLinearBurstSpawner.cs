@@ -19,6 +19,7 @@ public class GameObjectLinearBurstSpawner : GameObjectIntervalSpawner
         if (IsSpawnCountReached())
         {
             numberOfObjectsSpawned = 0;
+            SpawnInterval = originalSpawnInterval;
             return originalSpawnInterval;
         }
 
