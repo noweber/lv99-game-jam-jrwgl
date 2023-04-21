@@ -54,6 +54,23 @@ public class TopDownPlayerController : MonoBehaviour
             _currFaceDir = PlayerFaceDirection.up;
     }
 
+    public Vector3 GetPlayerDirection()
+    {
+        switch (_currFaceDir)
+        {
+            case PlayerFaceDirection.right:
+                return Vector3.right;
+            case PlayerFaceDirection.left:
+                return Vector3.left;
+            case PlayerFaceDirection.up:
+                return Vector3.up;
+            case PlayerFaceDirection.down:
+                return Vector3.down;
+        }
+        Debug.LogWarning("No current face direction");
+        return Vector3.zero;
+    }
+
     private void FixedUpdate()
     {
         // Move the character

@@ -24,16 +24,16 @@ public class Wingchun : KungFu
         {
             case PlayerFaceDirection.right:
                 //transform.position += Vector3.right * autoDashDistance;
-                Player.Instance.playerController.MoveToPosition(Vector3.right * dashDistance);
+                Player.Instance.playerController.MoveToPosition(transform.position + Vector3.right * dashDistance);
                 break;
             case PlayerFaceDirection.left:
-                Player.Instance.playerController.MoveToPosition(Vector3.left * dashDistance);
+                Player.Instance.playerController.MoveToPosition(transform.position + Vector3.left * dashDistance);
                 break;
             case PlayerFaceDirection.up:
-                Player.Instance.playerController.MoveToPosition(Vector3.up * dashDistance);
+                Player.Instance.playerController.MoveToPosition(transform.position + Vector3.up * dashDistance);
                 break;
             case PlayerFaceDirection.down:
-                Player.Instance.playerController.MoveToPosition(Vector3.down * dashDistance);
+                Player.Instance.playerController.MoveToPosition(transform.position + Vector3.down * dashDistance);
                 break;
         }
     }

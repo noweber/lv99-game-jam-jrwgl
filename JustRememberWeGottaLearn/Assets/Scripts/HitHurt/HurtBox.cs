@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Assets.Scripts.HitHurt;
+using System;
 using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.TextCore.Text;
 
-namespace Assets.Scripts.Damage
+namespace Assets.Scripts.HitHurt
 {
     public class HurtBox : MonoBehaviour, IHurtBox
     {
@@ -17,6 +18,7 @@ namespace Assets.Scripts.Damage
         [SerializeField] private GameObject damageText;
 
         public event Action<GameObject> OnHurt;
+
         public Action OnPlayerReceiveDmg;
 
         public Action<Vector3, int> OnDamaged;
@@ -24,7 +26,7 @@ namespace Assets.Scripts.Damage
         {
             UpdateHitPoints();
 
-            if (gameObject.CompareTag("Enemy"))
+            if (gameObject.CompareTag(Tags.Enemy))
             {
                 OnDamaged += (Vector3 position, int damage) => { DamagePopup.Create(position, damage); };
             }
@@ -44,8 +46,8 @@ namespace Assets.Scripts.Damage
 
         public void TakeDamage(float damage)
         {
-            //Debug.Log(MethodBase.GetCurrentMethod().DeclaringType.Name + "::" + MethodBase.GetCurrentMethod());
             hitPoints -= damage;
+
             if (this.gameObject.tag == "Player")
             {
                 AudioManager.instance.RequestSFX(SFXTYPE.health_reduction);
@@ -58,26 +60,21 @@ namespace Assets.Scripts.Damage
             {
                 AudioManager.instance.gameObject.SetActive(false);
             }
-            //Debug.Log("Damage: " + damage);
+
             UpdateHitPoints();
 
             if (gameObject.CompareTag("Player"))
             {
                 OnPlayerReceiveDmg.Invoke();
             }
-            
+
 
             OnDamaged?.Invoke(transform.position, (int)damage);
             if (hitPoints <= 0)
             {
                 if (damageText != null)
                 {
-                    var newObject = Instantiate(damageText, transform.position, Quaternion.identity);
-                    var floatingText = newObject.GetComponent<DamageText>();
-                    if (floatingText != null)
-                    {
-                        floatingText.SetText(damage.ToString());
-                    }
+                    Instantiate(damageText, transform.position, Quaternion.identity).GetComponent<DamageText>().SetText(damage.ToString());
                 }
 
                 Destroy(gameObject);
