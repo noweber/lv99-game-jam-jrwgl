@@ -6,17 +6,15 @@ using UnityEngine;
 public class OutOfBreath : KungFu
 {
     [SerializeField] private int OOBDamage = 1;
-    [SerializeField] private float dashDist = 0.5f;
+    
 
     public GameObject attackAbility;
     private void Awake()
     {
-
         _stance = Stance.stance.OutOfBreath;
-        autoDashDistance = dashDist;
     }
-
-    public override void Perform()
+    
+    public override void Attack()
     {
         //throw new System.NotImplementedException();
         if(attackAbility)
@@ -27,12 +25,26 @@ public class OutOfBreath : KungFu
 
     }
 
-    protected override void DoPlayerDash()
+    protected override void Dash()
     {
-        if (enabled)
+        PlayerFaceDirection dashDirection = Player.Instance.GetComponent<TopDownPlayerController>()._currFaceDir;
+        switch (dashDirection)
         {
-            base.DoPlayerDash();
-            GetComponent<HurtBox>().TakeDamage(OOBDamage);
+            case PlayerFaceDirection.right:
+                //transform.position += Vector3.right * autoDashDistance;
+                Player.Instance.playerController.MoveToPosition(Vector3.right * dashDistance);
+                break;
+            case PlayerFaceDirection.left:
+                Player.Instance.playerController.MoveToPosition(Vector3.left * dashDistance);
+                break;
+            case PlayerFaceDirection.up:
+                Player.Instance.playerController.MoveToPosition(Vector3.up * dashDistance);
+                break;
+            case PlayerFaceDirection.down:
+                Player.Instance.playerController.MoveToPosition(Vector3.down * dashDistance);
+                break;
         }
+
+        GetComponent<HurtBox>().TakeDamage(OOBDamage);
     }
 }

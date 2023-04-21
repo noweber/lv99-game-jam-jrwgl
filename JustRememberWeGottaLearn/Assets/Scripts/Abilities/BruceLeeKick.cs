@@ -1,21 +1,29 @@
+using DG.Tweening.Core.Easing;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class BruceLeeKick : KungFu
 {
-    public float dashDist;
+    [SerializeField] private float DashTime = 0.1f;
     public GameObject attackAbility;
     public PushBox pushBox;
     public float forwardOffset;
-    protected override void Start()
-    {
-        base.Start();
-        _stance = Stance.stance.BruceLee;
-        autoDashDistance = dashDist;
-    }
 
-    public override void Perform()
+
+    private float m_remainDashTime = 0;
+    private Vector3 m_dashOrigin;
+    private Vector3 m_dashTarget;
+
+
+    private void Awake()
+    {
+        _stance = Stance.stance.BruceLee;
+    }
+    
+    public override void Attack()
     {
         //throw new System.NotImplementedException();
         Vector3 offsetPosition = transform.position;
@@ -48,4 +56,48 @@ public class BruceLeeKick : KungFu
         pushbox.SetDir(kickDirection);
 
     }
+
+    protected override void Dash()
+    {
+        if (m_remainDashTime <= 0)
+        {
+            m_dashOrigin = transform.position;
+            m_remainDashTime = DashTime;
+            
+            PlayerFaceDirection dashDirection = Player.Instance.GetComponent<TopDownPlayerController>()._currFaceDir;
+            
+            switch (dashDirection)
+            {
+                case PlayerFaceDirection.right:
+                    m_dashTarget = m_dashOrigin + Vector3.right * dashDistance;
+                    break;
+                case PlayerFaceDirection.left:
+                    m_dashTarget = m_dashOrigin + Vector3.left * dashDistance;
+                    break;
+                case PlayerFaceDirection.up:
+                    m_dashTarget = m_dashOrigin + Vector3.up * dashDistance;
+                    break;
+                case PlayerFaceDirection.down:
+                    m_dashTarget = m_dashOrigin + Vector3.down * dashDistance;
+                    break;
+            }
+        }
+     
+    }
+
+    private void FixedUpdate()
+    {
+      
+        if (m_remainDashTime > 0)
+        {
+           
+            Vector3 nextPosition = Vector3.Lerp(m_dashOrigin, m_dashTarget, (1 - m_remainDashTime / DashTime));
+            m_remainDashTime -= Time.deltaTime;
+            Player.Instance.playerController.MoveToPosition(nextPosition);
+            //transform.position = nextPosition;
+            PlayerAfterImagePool.Instance.GetFromPool();
+        }
+        
+    }
+    
 }

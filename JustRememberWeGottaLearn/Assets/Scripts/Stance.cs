@@ -13,12 +13,10 @@ public class Stance : Singleton<Stance>
     [SerializeField] private stance startStance = stance.ShaolinKungFu;
     public enum stance
     {
-        Balance,
-        OutOfBreath,
         ShaolinKungFu,
         WingChun,
         BruceLee,
-        TunaTechnique
+        OutOfBreath
     }
 
     public override void Awake()
@@ -31,14 +29,7 @@ public class Stance : Singleton<Stance>
         
         TempoGenerator.Instance.OnBpmChange += DoStanceUpdate;
     }
-
-    private void Update()
-    {
-
-
-    }
-
-    
+   
     private void DoStanceUpdate(BPM bpm)
     {
         stance oldStance = currentStance;

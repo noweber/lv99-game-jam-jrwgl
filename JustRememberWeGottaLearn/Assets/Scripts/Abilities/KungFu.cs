@@ -6,16 +6,22 @@ using UnityEngine.Analytics;
 
 public abstract class KungFu : MonoBehaviour
 {
-    
+    [SerializeField] protected float dashDistance;
+
     protected Stance.stance _stance;
-    protected float autoDashDistance = 1.0f;
+    
+    protected int attackBreathIncrease = 3;
+    protected int dashBreathIncrease = 2;
+
+    public Action<int> OnKungFuAttack;
+    public Action<int> OnKungFuDash;
 
     protected virtual void Start()
     {
+        //Debug.Log("KungFu start");
+        //Debug.Log(gameObject);
         enabled = false;
         Stance.Instance.onSwitchStance += TryEnable;
-        
-       
         Player.Instance.OnPlayerAttack += DoPlayerAttack;
         Player.Instance.OnPlayerDash += DoPlayerDash;
         TryEnable();
@@ -34,16 +40,12 @@ public abstract class KungFu : MonoBehaviour
         }
     }
 
-    protected virtual void Update()
-    {
-        
-    }
-
     protected virtual void DoPlayerAttack()
     {
         if (enabled)
         {
-            Perform();
+            Attack();
+            OnKungFuAttack.Invoke(attackBreathIncrease);
         }
     }
 
@@ -51,30 +53,14 @@ public abstract class KungFu : MonoBehaviour
     {
         if (enabled)
         {
-            PlayerFaceDirection dashDirection = Player.Instance.GetComponent<TopDownPlayerController>()._currFaceDir;
-            switch (dashDirection)
-            {
-                case PlayerFaceDirection.right:
-                    //transform.position += Vector3.right * autoDashDistance;
-                    Player.Instance.playerController.MoveToPosition(Vector3.right * autoDashDistance);
-                    break;
-                case PlayerFaceDirection.left:
-                    Player.Instance.playerController.MoveToPosition(Vector3.left * autoDashDistance);
-                    break;
-                case PlayerFaceDirection.up:
-                    Player.Instance.playerController.MoveToPosition(Vector3.up * autoDashDistance);
-                    break;
-                case PlayerFaceDirection.down:
-                    Player.Instance.playerController.MoveToPosition(Vector3.down * autoDashDistance);
-                    break;
-            }
+            Dash();
+            OnKungFuDash.Invoke(dashBreathIncrease);
         }
 
     }
 
-    
-    public abstract void Perform();
-
+    public abstract void Attack();
+    protected abstract void Dash();
 
     
 }

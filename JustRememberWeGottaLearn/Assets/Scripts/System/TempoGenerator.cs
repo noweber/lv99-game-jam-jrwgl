@@ -23,8 +23,7 @@ public class TempoGenerator : Singleton<TempoGenerator>
     [SerializeField] private KungFuBeat kungFuBeat;
     [SerializeField] private int BreathFrequency = 30;
 
-    [SerializeField] private int attackBFIncrease = 3;
-    [SerializeField] private int dashBFIncrease = 2;
+   
     [SerializeField] private int bfNaturalDecreaseAmount = 1;
     [SerializeField] private float bfNaturalDecreaseTimeInterval = 0.2f;
     [SerializeField] private float TakeDeepBreathInterval = 0.05f;
@@ -76,11 +75,17 @@ public class TempoGenerator : Singleton<TempoGenerator>
         //TryStartGenerate(Stance.stance.BruceLee, 100, 60);
         TempoReceiver.Instance.OnBeatReceived += DestroyHeadbeat;
         //TryStartGenerate();
-        Player.Instance.OnPlayerAttack += DoAttackBFIncrease;
-        Player.Instance.OnPlayerDash += DoDashBFIncrease;
+        //Player.Instance.OnPlayerAttack += DoAttackBFIncrease;
+        //Player.Instance.OnPlayerDash += DoDashBFIncrease;
         Player.Instance.OnTakeDeepBreath += HandleTakeBreath;
         Player.Instance.OnStopTakeBreath += HandleStopTakingBreath;
-        
+
+        foreach(KungFu kungfu in Player.Instance.GetComponents<KungFu>())
+        {
+            kungfu.OnKungFuAttack += DoAttackBFIncrease;
+            kungfu.OnKungFuDash += DoDashBFIncrease;
+        }
+
 
         bpm = BPM.bpm30;
     }
@@ -97,7 +102,7 @@ public class TempoGenerator : Singleton<TempoGenerator>
     {
         return BreathFrequency;
     }
-    private void DoAttackBFIncrease()
+    private void DoAttackBFIncrease(int attackBFIncrease)
     {
         if (!isHarmony)
         {
@@ -106,7 +111,7 @@ public class TempoGenerator : Singleton<TempoGenerator>
         }
     }
 
-    private void DoDashBFIncrease()
+    private void DoDashBFIncrease(int dashBFIncrease)
     {
         if (!isHarmony)
         {

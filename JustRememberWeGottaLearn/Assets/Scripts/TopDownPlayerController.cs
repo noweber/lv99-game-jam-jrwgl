@@ -73,7 +73,7 @@ public class TopDownPlayerController : MonoBehaviour
 
     public void MoveToPosition(Vector3 newPosition)
     {
-        rb.MovePosition(rb.position + (Vector2)newPosition);
+        rb.MovePosition((Vector2)newPosition);
         OnPlayerMove?.Invoke(transform.position - playerLastPosition);
         playerLastPosition = transform.position;
     }

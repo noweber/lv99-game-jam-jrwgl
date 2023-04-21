@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2460927640416952464}
   - component: {fileID: 2460927640416952479}
+  - component: {fileID: 1524181639}
   m_Layer: 0
   m_Name: TempoGenerator 1
   m_TagString: Untagged
@@ -47,8 +48,18 @@ MonoBehaviour:
   bpm: 0
   kungFuBeat: {fileID: 3521766409344986558, guid: 9028c43b286dbc749b2aef625989b7b5, type: 3}
   BreathFrequency: 30
-  attackBFIncrease: 3
-  dashBFIncrease: 2
   bfNaturalDecreaseAmount: 1
   bfNaturalDecreaseTimeInterval: 2
   TakeDeepBreathInterval: 0.08
+--- !u!114 &1524181639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2460927640416952478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aae875afaf2b84340b0781378f632e69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

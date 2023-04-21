@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
 public class TunaTechnique : KungFu
 {
     [SerializeField] private int healingAmount = 1;
@@ -28,3 +29,4 @@ public class TunaTechnique : KungFu
         
     }
 }
+*/
