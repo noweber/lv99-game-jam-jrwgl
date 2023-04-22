@@ -519,7 +519,7 @@ MonoBehaviour:
   sprintStaminaCost: 1
   sprintStaminaRecoveryRate: 0.5
   dashDistance: 5
-  dashSpeed: 20
+  dashSpeed: 15
   dashTime: 0.5
   dashAfterImageDistance: 0.5
   dashCooldown: 1

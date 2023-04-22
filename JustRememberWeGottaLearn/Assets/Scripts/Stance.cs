@@ -10,7 +10,7 @@ public class Stance : Singleton<Stance>
     public stance currentStance;
     public Action onSwitchStance;
 
-    [SerializeField] private stance startStance = stance.ShaolinKungFu;
+    [SerializeField] private stance startStance = stance.BruceLee;
     public enum stance
     {
         ShaolinKungFu,
@@ -42,18 +42,9 @@ public class Stance : Singleton<Stance>
                 currentStance = stance.ShaolinKungFu;
                 break;
             case BPM.bpm90:
-                currentStance = stance.BruceLee;
+                currentStance = stance.ShaolinKungFu;
                 break;
             case BPM.bpm120:
-                currentStance = stance.BruceLee;
-                break;
-            case BPM.bpm150:
-                currentStance = stance.WingChun;
-                break;
-            case BPM.bpm180:
-                currentStance = stance.WingChun;
-                break;
-            case BPM.bpm180plus:
                 currentStance = stance.OutOfBreath;
                 break;
         }
