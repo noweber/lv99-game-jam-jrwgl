@@ -1,112 +1,79 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class TempoReceiver : Singleton<TempoReceiver>
 {
-    //public Action OnAutoAttack;
-    //public Action OnAutoDash;
-    public Action OnBeatReceived;
+   
     
+    private List<KungFuBeat> m_beats = new List<KungFuBeat>();
+    [SerializeField] private float detectionZoneRadius = 1.0f;
+    public Action<Vector3, string> OnHitTextPopup;
 
-    //public Action<Vector3, string> OnMissTextPopup;
-
-    //private GameObject hasBeat;
-    private List<KungFuBeat> beats = new List<KungFuBeat>();
-    [SerializeField] private KeyCode autoAttackKey = KeyCode.J;
-    [SerializeField] private KeyCode autoDashKey = KeyCode.K;
-
-
-    public override void Awake()
+    public float LeftDetectionPointX
     {
-        base.Awake();
-        //hasBeat = null;
+        get { return transform.position.x - detectionZoneRadius; }
     }
 
-    public void Start()
+    public float RightDetectionPointX
     {
-        //OnMissTextPopup += (Vector3 position, string text) => { TextPopup.Create(position, text); };
-        Player.Instance.OnPlayerAttack += DoAttackBeatReceive;
-        Player.Instance.OnPlayerDash += DoDashBeatReceive; 
-
+        get { return transform.position.x + detectionZoneRadius; }
     }
-   
-    private void DoAttackBeatReceive()
+    public Action<bool> OnBeatMiss;
+
+    private void Start()
     {
-        //if (hasBeat)
-        if(beats.Count != 0)
+       TempoSystem.Instance.OnTryHit += TryHit;
+       OnHitTextPopup += (Vector3 position, string text) => { TextPopup.Create(position, text); };
+    }
+    public void AddMe(KungFuBeat beat)
+    {
+        m_beats.Add(beat);
+    }
+
+    private void TryHit()
+    {
+        if(m_beats.Count == 0)
         {
-            //hasBeat.GetComponent<KungFuBeat>().Hit();
-            //hasBeat = null;
-            KungFuBeat beat = beats[0];
-            //beats.RemoveAt(0);
-            beat.Hit();
-            OnBeatReceived.Invoke();
+            OnBeatMiss.Invoke(true);
         }
         else
         {
-            OnBeatReceived.Invoke();
-
+            OnHitTextPopup?.Invoke(transform.position, "Breath");
+            OnBeatMiss.Invoke(false);
+            KungFuBeat firstBeat = m_beats[0];
+            m_beats.RemoveAt(0);
+            firstBeat.Hide();
         }
 
     }
 
-    private void DoDashBeatReceive()
+    private void FixedUpdate()
     {
-        if (beats.Count != 0)
-        {
-            //hasBeat.GetComponent<KungFuBeat>().Hit();
-            //hasBeat = null;
-            KungFuBeat beat = beats[0];
-            //beats.RemoveAt(0);
-            beat.Hit();
-            OnBeatReceived.Invoke();
-        }
-        else
-        {
-            OnBeatReceived.Invoke();
-        }
 
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
+        for(int i = 0; i < m_beats.Count; i++)
+        {
+            KungFuBeat beat = m_beats[i];
+            if (beat.transform.position.x >= RightDetectionPointX)
+            {
+                beat.Hide();
+                OnBeatMiss.Invoke(true);
+                m_beats.RemoveAt(i);
+                i--;
+            }
+        }
         
-        if (collision.gameObject.CompareTag("KungFuBeat"))
-        {
-            /*
-            if (hasBeat)
-            {
-                Debug.LogError("Two beat can not exist in Tempo zone at the same time");
-            }
-            else
-            {
-   
-                hasBeat = collision.gameObject;
-            }
-            */
-
-            beats.Add(collision.gameObject.GetComponent<KungFuBeat>());
-        }
+        
     }
-
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnDrawGizmos()
     {
-        if (collision.gameObject.CompareTag("KungFuBeat"))
-        {
-            /*
-            if(collision.gameObject != hasBeat)
-            {
-                //Debug.LogError("game object not equal to beat");
-            }
-            //hasBeat.SetActive(false);
-            hasBeat = null;
-            OnBeatReceived.Invoke();
-            */
-            beats.RemoveAt(0);
-            OnBeatReceived.Invoke();
-        }
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position + detectionZoneRadius * Vector3.left, 0.1f);
+        Gizmos.DrawWireSphere(transform.position + detectionZoneRadius * Vector3.right, 0.1f);
+        Gizmos.DrawLine(transform.position + detectionZoneRadius * Vector3.left, transform.position + detectionZoneRadius * Vector3.right);
+     
     }
 
 }

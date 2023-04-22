@@ -17,7 +17,7 @@ public class PlayerOOBEffect : MonoBehaviour
 
     private void Start()
     {
-        TempoGenerator.Instance.OnBpmChange += TiggerEffect;
+        TempoSystem.Instance.OnBpmChange += TiggerEffect;
         //Player.Instance.GetComponent<HurtBox>().OnPlayerReceiveDmg += TiggerEffect;
     }
 

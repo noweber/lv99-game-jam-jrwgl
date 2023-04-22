@@ -27,7 +27,7 @@ public class Stance : Singleton<Stance>
     private void Start()
     {
         
-        TempoGenerator.Instance.OnBpmChange += DoStanceUpdate;
+        TempoSystem.Instance.OnBpmChange += DoStanceUpdate;
     }
    
     private void DoStanceUpdate(BPM bpm)

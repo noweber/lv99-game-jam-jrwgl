@@ -7,30 +7,22 @@ using UnityEngine.TerrainTools;
 public class KungFuBeat : MonoBehaviour
 {
     [SerializeField] private float movingSpeed = 5;
-    private bool isHit;
     private Transform spawnPosition;
-    private bool isInit;
-
-    public Action<Vector3, string> OnMissTextPopup;
-
-
-    public Action OnBeatMiss;
-    public Action OnBeatHit;
-
+   
     private SpriteRenderer _sprite;
+    private bool m_inReceiver;
 
     // Start is called before the first frame update
     void Awake()
     {
-        isHit = false;
-        isInit = false;
+        m_inReceiver = false;
         _sprite = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
     {
-        OnMissTextPopup += (Vector3 position, string text) => { TextPopup.Create(position, text); };
-        TempoGenerator.Instance.OnBpmChange += DoChangeBeatColor;
+        //TempoGenerator.Instance.OnBpmChange += DoChangeBeatColor;
+        TempoSystem.Instance.OnBpmChange += DoChangeBeatColor;
     }
 
     private void DoChangeBeatColor(BPM bpm)
@@ -45,52 +37,30 @@ public class KungFuBeat : MonoBehaviour
             _sprite.color = Color.white;
         }
     }
-    // Update is called once per frame
-    void Update()
-    {
-        transform.position += Vector3.right * movingSpeed * Time.deltaTime;
-    }
-
-    private void OnDisable()
-    {
-        TempoGenerator.Instance.OnBpmChange -= DoChangeBeatColor;
-    }
-    private void OnEnable()
-    {
-        TempoGenerator.Instance.OnBpmChange += DoChangeBeatColor;
-        isHit = false;
-
-    }
-
+  
     public void Hide()
     {
-        //Debug.Log("Beat is disabled and moved back to the spawn location ");
-        Vector3 missPosition = transform.position;
         if (spawnPosition)//Clean up code
             transform.position = spawnPosition.position;
 
-        if (!isHit)
-        {
-            //Debug.Log("To do, miss beat text pop up");
-            OnBeatMiss.Invoke();
-            //OnMissTextPopup?.Invoke(missPosition, "Miss");
-        }
-        else
-        {
-            OnBeatHit.Invoke();
-            OnMissTextPopup?.Invoke(missPosition, "Breath");
-        }
+
+        m_inReceiver = false;
         gameObject.SetActive(false);
 
     }
 
-    
-    public void Hit()
-    {
-        isHit = true;
-    }
     public void SetSpawnPosition(Transform _spawnPosition)
     {
         spawnPosition = _spawnPosition;
+    }
+
+    private void FixedUpdate()
+    {
+        transform.position += Vector3.right * movingSpeed * Time.deltaTime;
+        if (transform.position.x > TempoReceiver.Instance.LeftDetectionPointX && transform.position.x < TempoReceiver.Instance.RightDetectionPointX && !m_inReceiver)
+        {
+            m_inReceiver = true;
+            TempoReceiver.Instance.AddMe(this);
+        }
     }
 }
