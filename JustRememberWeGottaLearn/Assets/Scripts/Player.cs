@@ -48,6 +48,7 @@ public class Player : Singleton<Player>
         {
             if (!isTakingBreath)
             {
+                AudioManager.instance.RequestSFX(SFXTYPE.yell);
                 OnPlayerAttack.Invoke();
             }
         }

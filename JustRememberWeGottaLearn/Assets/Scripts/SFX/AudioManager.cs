@@ -5,7 +5,9 @@ using UnityEngine;
 public enum SFXTYPE
 {
     player_attack = 0,
-    health_reduction
+    health_reduction,
+    yell,
+    breath
 }
 
 public class AudioManager : MonoBehaviour

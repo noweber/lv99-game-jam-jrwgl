@@ -60,6 +60,19 @@ MonoBehaviour:
     volumes:
     - 1
     - 1
+  - name: yell
+    sounds:
+    - {fileID: 8300000, guid: 4f7ccfb5414277b44bba820314142f32, type: 3}
+    - {fileID: 8300000, guid: bb48950bb183cff479395884a1684ff5, type: 3}
+    volumes:
+    - 1
+    - 1
+  - name: breath
+    sounds:
+    - {fileID: 8300000, guid: 6830218d8ba115c479ba36a2721eecf9, type: 3}
+    volumes:
+    - 1
+    - 1
 --- !u!1 &5908053016683890874
 GameObject:
   m_ObjectHideFlags: 0
