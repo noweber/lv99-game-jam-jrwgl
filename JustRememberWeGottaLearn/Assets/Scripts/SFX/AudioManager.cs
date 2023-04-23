@@ -15,6 +15,7 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance;
 
     private AudioSource as_sfx;
+    private AudioSource as_sfx_breath;
     private AudioSource as_music;
     //private AudioSource as_music_2;
     [SerializeField] private SFXGroup[] sfxGroups;
@@ -32,6 +33,7 @@ public class AudioManager : MonoBehaviour
         instance = this;
         as_sfx = this.transform.GetChild(0).GetComponent<AudioSource>();
         as_music = this.transform.GetChild(1).GetComponent<AudioSource>();
+        as_sfx_breath = this.transform.GetChild(2).GetComponent<AudioSource>();
         //as_music_2 = transform.Find("AS_Music_2").GetComponent<AudioSource>();
     }
 
@@ -55,6 +57,14 @@ public class AudioManager : MonoBehaviour
     public void RequestSFX(SFXTYPE sfx)
     {
         as_sfx.PlayOneShot(sfxGroups[(int)sfx].sounds[Random.Range(0, sfxGroups[(int)sfx].sounds.Length)],
+            Random.Range(sfxGroups[(int)sfx].volumes[0], sfxGroups[(int)sfx].volumes[1]));
+    }
+
+    public void RequestSFX_breath(SFXTYPE sfx, float speed)
+    {
+        as_sfx_breath.pitch = speed;
+        as_sfx_breath.outputAudioMixerGroup.audioMixer.SetFloat("Pitch", 1f / speed);
+        as_sfx_breath.PlayOneShot(sfxGroups[(int)sfx].sounds[Random.Range(0, sfxGroups[(int)sfx].sounds.Length)],
             Random.Range(sfxGroups[(int)sfx].volumes[0], sfxGroups[(int)sfx].volumes[1]));
     }
 }
