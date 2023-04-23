@@ -11,31 +11,29 @@ public class Experience : Singleton<Experience>
 
     private int m_level = 1;
     private int m_currentExp = 0;
-
+    
     public Action OnLevelUp;
     public Action<float> OnExpChangePercentage; // For UI
 
     [Command()]
-    private void GainExp(int expAmount)
+    public void GainExp(int expAmount)
     {
         int nextLevelExp = m_baseExp * (m_level + 1) * m_expFactor;
-        if(nextLevelExp <= expAmount + m_currentExp)
+        m_currentExp += expAmount;
+        //Debug.Log("Gain Exp");
+        OnExpChangePercentage?.Invoke((float)m_currentExp / nextLevelExp);
+    }
+
+    private void Update()
+    {
+        int nextLevelExp = m_baseExp * (m_level + 1) * m_expFactor;
+        if (nextLevelExp <= m_currentExp)
         {
-            Debug.Log(m_level);
-            m_currentExp = (expAmount + m_currentExp) % nextLevelExp;
+            //Debug.Log(m_level);
+            m_currentExp = (m_currentExp) - nextLevelExp;
             m_level += 1;
             OnLevelUp?.Invoke();
         }
-        else
-        {
-            m_currentExp = (expAmount + m_currentExp);
-        }
-
-        Debug.Log("Gain Exp");
-        OnExpChangePercentage?.Invoke((float)m_currentExp / nextLevelExp);
-
-
-
     }
 
 }

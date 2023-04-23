@@ -1,5 +1,6 @@
 using Assets.Scripts.HitHurt;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : Singleton<Player>
@@ -20,6 +21,11 @@ public class Player : Singleton<Player>
     [SerializeField] private KeyCode takeDeepBreathKey = KeyCode.B;
 
     private bool isTakingBreath;
+    private List<Card> m_collection = new List<Card>();
+    public List<Card> CardCollection
+    {
+        get { return m_collection; }
+    }
     public override void Awake()
     {
         base.Awake();
@@ -29,7 +35,10 @@ public class Player : Singleton<Player>
         playerController = GetComponent<TopDownPlayerController>();
 
     }
-
+    public void AddCard(Card card)
+    {
+        m_collection.Add(card);
+    }
     private void Update()
     {
         playerController.SetMoveDirection(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
