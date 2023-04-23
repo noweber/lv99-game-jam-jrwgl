@@ -16,6 +16,9 @@ public class Shaolin : KungFu
     [SerializeField]
     private bool isUpgrade;
 
+    [SerializeField]
+    private GameObject VFX;
+
     protected void Awake()
     {
         _stance = Stance.stance.ShaolinKungFu;
@@ -41,29 +44,62 @@ public class Shaolin : KungFu
             }
 
             Vector3 dir2Enemy = (minTransform.position - transform.position).normalized;
-            foreach (var c in colliders)
+
+            if (!isUpgrade)
             {
-                Vector2 dir = (c.transform.position - transform.position).normalized;
-                if (!isUpgrade)
+                foreach (var c in colliders)
                 {
+                    Vector2 dir = (c.transform.position - transform.position).normalized;
                     float angleBetween = Vector2.Angle(dir, dir2Enemy);
                     if (angleBetween <= 60 / 2f)
                     {
+                        float angle = Mathf.Atan2(dir2Enemy.y, dir2Enemy.x) * Mathf.Rad2Deg;
                         Instantiate(attackAbility, c.transform.position, c.transform.rotation);
+                        Instantiate(VFX, transform.position + dir2Enemy.normalized * 2.0f, Quaternion.Euler(new Vector3(0, 0, angle)));
                     }
                 }
-                else
+            }
+            else
+            {
+                foreach (var c in colliders)
                 {
+                    Vector2 dir = (c.transform.position - transform.position).normalized;
                     float angleBetweenInverse = Vector2.Angle(dir, -dir2Enemy);
                     float angleBetween = Vector2.Angle(dir, dir2Enemy);
-                    Debug.Log(angleBetweenInverse);
                     if (angleBetween <= 60 / 2f || angleBetweenInverse <= 60 / 2f)
                     {
+                        float angle = Mathf.Atan2(dir2Enemy.y, dir2Enemy.x) * Mathf.Rad2Deg;
                         Instantiate(attackAbility, c.transform.position, c.transform.rotation);
+                        Instantiate(VFX, transform.position + dir2Enemy.normalized * 2.0f, Quaternion.Euler(new Vector3(0, 0, angle)));
                     }
                 }
-
             }
+        }
+        else
+        {
+            Vector3 offsetPosition = transform.position;
+            Quaternion offsetRotation = transform.rotation;
+            switch (Player.Instance.gameObject.GetComponent<TopDownPlayerController>()._currFaceDir)
+            {
+                case PlayerFaceDirection.right:
+                    offsetPosition = transform.position + new Vector3(1 * 3, 0, 0);
+                    offsetRotation = Quaternion.Euler(0, 0, 0);
+                    break;
+                case PlayerFaceDirection.left:
+                    offsetPosition = transform.position + new Vector3(-1 * 3, 0, 0);
+                    offsetRotation = Quaternion.Euler(0, 0, 180);
+                    break;
+                case PlayerFaceDirection.up:
+                    offsetPosition = transform.position + new Vector3(0, 1 * 3, 0);
+                    offsetRotation = Quaternion.Euler(0, 0, 90);
+                    break;
+                case PlayerFaceDirection.down:
+                    offsetPosition = transform.position + new Vector3(0, -1 * 3, 0);
+                    offsetRotation = Quaternion.Euler(0, 0, -90);
+                    break;
+            }
+
+            Instantiate(VFX, offsetPosition, offsetRotation);
         }
 
     }

@@ -6,6 +6,11 @@ public class Wingchun : KungFu
 {
     public GameObject attackAbility;
 
+    [SerializeField]
+    private GameObject VFX;
+    [SerializeField]
+    private Vector3 VFXOffset;
+    
     private void Awake()
     {
         _stance = Stance.stance.WingChun;
@@ -15,6 +20,7 @@ public class Wingchun : KungFu
     {
         //throw new System.NotImplementedException();
         Instantiate(attackAbility, transform.position, transform.rotation);
+        Instantiate(VFX, transform.position +VFXOffset , transform.rotation);
     }
 
     protected override void Dash()

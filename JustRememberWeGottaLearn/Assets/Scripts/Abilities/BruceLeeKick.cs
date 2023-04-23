@@ -20,9 +20,11 @@ public class BruceLeeKick : KungFu
     [SerializeField]
     private bool isUpgrade;
     private bool isUpgradeAttacking;
-
     [SerializeField]
     private float upgradeAttackMoveTime = 0;
+
+    [SerializeField]
+    private GameObject VFX;
 
     private void Awake()
     {
@@ -71,6 +73,7 @@ public class BruceLeeKick : KungFu
             {
                 isUpgradeAttacking = false;
                 Instantiate(attackAbility, transform.position + dir2Enemy.normalized * 4.0f, Quaternion.Euler(new Vector3(0, 0, angle)));
+                Instantiate(VFX, transform.position + dir2Enemy.normalized * 2.0f, Quaternion.Euler(new Vector3(0, 0, angle)));
                 PushBox pushbox = Instantiate(pushBox, transform.position + dir2Enemy.normalized * 4.0f, Quaternion.Euler(new Vector3(0, 0, angle)));
                 pushbox.SetDir(dir2Enemy);
             }
@@ -102,6 +105,7 @@ public class BruceLeeKick : KungFu
             }
 
             Instantiate(attackAbility, offsetPosition, transform.rotation);
+            Instantiate(VFX, offsetPosition, transform.rotation);
             PushBox pushbox = Instantiate(pushBox, offsetPosition, transform.rotation);
             pushbox.SetDir(kickDirection);
         }
@@ -127,6 +131,7 @@ public class BruceLeeKick : KungFu
             Vector3 dir2Enemy = (minTransform.position - transform.position).normalized;
             float angle = Mathf.Atan2(dir2Enemy.y, dir2Enemy.x) * Mathf.Rad2Deg;
             Instantiate(attackAbility, transform.position + dir2Enemy * 4.0f, Quaternion.Euler(new Vector3(0, 0, angle)));
+            Instantiate(VFX, transform.position + dir2Enemy * 2.0f, Quaternion.Euler(new Vector3(0, 0, angle)));
             PushBox pushbox = Instantiate(pushBox, transform.position + dir2Enemy * 4.0f, Quaternion.Euler(new Vector3(0, 0, angle)));
             pushbox.SetDir(dir2Enemy);
         }
@@ -156,6 +161,7 @@ public class BruceLeeKick : KungFu
             }
 
             Instantiate(attackAbility, offsetPosition, transform.rotation);
+            Instantiate(VFX, offsetPosition, transform.rotation);
             PushBox pushbox = Instantiate(pushBox, offsetPosition, transform.rotation);
             pushbox.SetDir(kickDirection);
         }
@@ -214,6 +220,7 @@ public class BruceLeeKick : KungFu
                 Vector3 dir2Enemy = (m_dashTarget - m_dashOrigin).normalized;
                 float angle = Mathf.Atan2(dir2Enemy.y, dir2Enemy.x) * Mathf.Rad2Deg;
                 Instantiate(attackAbility, transform.position + dir2Enemy * 4.0f, Quaternion.Euler(new Vector3(0, 0, angle)));
+                Instantiate(VFX, transform.position + dir2Enemy * 4.0f, Quaternion.Euler(new Vector3(0, 0, angle)));
                 PushBox pushbox = Instantiate(pushBox, transform.position + dir2Enemy * 4.0f, Quaternion.Euler(new Vector3(0, 0, angle)));
                 pushbox.SetDir(dir2Enemy);
                 isUpgradeAttacking = false;

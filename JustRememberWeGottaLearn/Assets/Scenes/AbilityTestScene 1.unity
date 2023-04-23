@@ -1793,6 +1793,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2123668409002602773}
     - target: {fileID: 1038151901306748300, guid: 6a1f6faccf2ee5743aa5e9eec4396349, type: 3}
+      propertyPath: VFX
+      value: 
+      objectReference: {fileID: 8418707241707732409, guid: e58b24cbb9ca35e4388c4fbd2df1832f, type: 3}
+    - target: {fileID: 1038151901306748300, guid: 6a1f6faccf2ee5743aa5e9eec4396349, type: 3}
+      propertyPath: VFXOffset.x
+      value: 0.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038151901306748300, guid: 6a1f6faccf2ee5743aa5e9eec4396349, type: 3}
+      propertyPath: VFXOffset.y
+      value: -0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038151901306748300, guid: 6a1f6faccf2ee5743aa5e9eec4396349, type: 3}
       propertyPath: dashDistance
       value: 1
       objectReference: {fileID: 0}
@@ -1805,6 +1817,10 @@ PrefabInstance:
       value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1038151901306748302, guid: 6a1f6faccf2ee5743aa5e9eec4396349, type: 3}
+      propertyPath: VFX
+      value: 
+      objectReference: {fileID: 9011509815105988721, guid: 97fd72aef2f7e094fb8639eb5f0df60c, type: 3}
+    - target: {fileID: 1038151901306748302, guid: 6a1f6faccf2ee5743aa5e9eec4396349, type: 3}
       propertyPath: DashTime
       value: 0.2
       objectReference: {fileID: 0}
@@ -1816,6 +1832,10 @@ PrefabInstance:
       propertyPath: dashDistance
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1038151901306748303, guid: 6a1f6faccf2ee5743aa5e9eec4396349, type: 3}
+      propertyPath: VFX
+      value: 
+      objectReference: {fileID: 9011509815105988721, guid: 97fd72aef2f7e094fb8639eb5f0df60c, type: 3}
     - target: {fileID: 1038151901306748303, guid: 6a1f6faccf2ee5743aa5e9eec4396349, type: 3}
       propertyPath: isUpgrade
       value: 1
@@ -2115,11 +2135,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2908505609365433159, guid: e54d0ed5baf3f2b4e9184c93bf096259, type: 3}
       propertyPath: startStance
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2908505609365433159, guid: e54d0ed5baf3f2b4e9184c93bf096259, type: 3}
       propertyPath: currentStance
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2908505609365433208, guid: e54d0ed5baf3f2b4e9184c93bf096259, type: 3}
       propertyPath: m_RootOrder
