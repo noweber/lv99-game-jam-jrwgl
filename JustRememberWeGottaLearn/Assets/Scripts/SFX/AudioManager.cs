@@ -60,11 +60,14 @@ public class AudioManager : MonoBehaviour
             Random.Range(sfxGroups[(int)sfx].volumes[0], sfxGroups[(int)sfx].volumes[1]));
     }
 
-    public void RequestSFX_breath(SFXTYPE sfx, float speed)
+    public void StartPlayBPM(BPM bpm, float timeOffset)
     {
-        as_sfx_breath.pitch = speed;
-        as_sfx_breath.outputAudioMixerGroup.audioMixer.SetFloat("Pitch", 1f / speed);
-        as_sfx_breath.PlayOneShot(sfxGroups[(int)sfx].sounds[Random.Range(0, sfxGroups[(int)sfx].sounds.Length)],
-            Random.Range(sfxGroups[(int)sfx].volumes[0], sfxGroups[(int)sfx].volumes[1]));
+        //as_sfx_breath.Play();
+        as_sfx_breath.pitch = (int)bpm/90;
+        as_sfx_breath.outputAudioMixerGroup.audioMixer.SetFloat("Pitch", 90 / (int)bpm);
+        as_sfx_breath.PlayDelayed(timeOffset);
+
+        as_sfx_breath.loop = true;
+        Debug.Log("one breath");
     }
 }

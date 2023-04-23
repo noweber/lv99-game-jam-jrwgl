@@ -119,7 +119,6 @@ public class TempoSystem : Singleton<TempoSystem>
     private void TakeDeepBreath()
     {
         m_timeUtilNextDeepBreath -= Time.deltaTime;
-       
 
         if (m_timeUtilNextDeepBreath <= 0)
         {
@@ -140,6 +139,7 @@ public class TempoSystem : Singleton<TempoSystem>
 
     private void TryUpdateBPM()
     {
+        AudioManager.instance.StartPlayBPM(m_bpm, 1);
         BPM oldBpm = m_bpm;
 
         if (m_breathFrequency < 45)
@@ -180,7 +180,6 @@ public class TempoSystem : Singleton<TempoSystem>
         {
             TakeDeepBreath();
         }
-       
 
     }
 

@@ -41,12 +41,12 @@ AudioSource:
   m_GameObject: {fileID: 5400060947626458822}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  OutputAudioMixerGroup: {fileID: 24300002, guid: c85d166ea2d663d489fcffd2855c9325, type: 2}
+  m_audioClip: {fileID: 8300000, guid: b0bbd100d7ac88a47b3c475d28a90bb3, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -198,7 +198,7 @@ MonoBehaviour:
     - 1
   - name: breath
     sounds:
-    - {fileID: 8300000, guid: abd504464d6a0e648b08a66010d0d27c, type: 3}
+    - {fileID: 8300000, guid: b0bbd100d7ac88a47b3c475d28a90bb3, type: 3}
     volumes:
     - 1
     - 1
