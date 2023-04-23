@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4310261610617928273}
   - component: {fileID: 1692984482214269690}
   - component: {fileID: 1692984482214269689}
+  - component: {fileID: -3619716403139263227}
   m_Layer: 6
   m_Name: LittleRedRidingHood
   m_TagString: Enemy
@@ -69,6 +70,7 @@ MonoBehaviour:
   hitPoints: 6
   hitPointsText: {fileID: 0}
   damageText: {fileID: 168693653855988796, guid: 7a207ec32f7e177489d57e8383905ea8, type: 3}
+  destroyGameObjectWhenHitPointsAreZero: 1
 --- !u!114 &4310261610617928273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,6 +132,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-3619716403139263227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692984482214269684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0626fe89cd5744d42bf68b9bd89fe6bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PrefabsWithAChanceToSpawn:
+  - {fileID: 9122848400667855351, guid: a47e9fcac6069aa4d80556bf5d271e82, type: 3}
+  PercentChanceToSpawnEachPrefab: 0.25
+  MaxSpawnCountPerPrefab: 1
+  PrefabsWhichAlwaysSpawn: []
 --- !u!1 &1692984482890159443
 GameObject:
   m_ObjectHideFlags: 0

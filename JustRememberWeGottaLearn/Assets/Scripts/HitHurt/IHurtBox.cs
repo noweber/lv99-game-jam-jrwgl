@@ -9,7 +9,8 @@ namespace Assets.Scripts.HitHurt
 
         void TakeDamage(float damage);
 
-
         event Action<GameObject> OnHurt;
+
+        event Action HitPointsAreZero;
     }
 }
