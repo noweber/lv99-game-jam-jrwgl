@@ -41,7 +41,7 @@ AudioSource:
   m_GameObject: {fileID: 5400060947626458822}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: c85d166ea2d663d489fcffd2855c9325, type: 2}
+  OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b0bbd100d7ac88a47b3c475d28a90bb3, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -181,21 +181,21 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 0ad4bf82c265fb741972a7f2fe6c914a, type: 3}
     - {fileID: 8300000, guid: af4b70bb190d13f45bc86117c08dd2b6, type: 3}
     volumes:
-    - 1
-    - 1
+    - 0.2
+    - 0.2
   - name: health_reduction
     sounds:
     - {fileID: 8300000, guid: 6830218d8ba115c479ba36a2721eecf9, type: 3}
     volumes:
-    - 1
-    - 1
+    - 0.2
+    - 0.2
   - name: yell
     sounds:
     - {fileID: 8300000, guid: 4f7ccfb5414277b44bba820314142f32, type: 3}
     - {fileID: 8300000, guid: bb48950bb183cff479395884a1684ff5, type: 3}
     volumes:
-    - 1
-    - 1
+    - 0.2
+    - 0.2
   - name: breath
     sounds:
     - {fileID: 8300000, guid: b0bbd100d7ac88a47b3c475d28a90bb3, type: 3}
@@ -246,7 +246,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b090ec6132eaa9a428e95293ea3276a9, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.25
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0

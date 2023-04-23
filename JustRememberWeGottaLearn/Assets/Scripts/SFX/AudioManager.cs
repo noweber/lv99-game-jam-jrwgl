@@ -62,12 +62,8 @@ public class AudioManager : MonoBehaviour
 
     public void StartPlayBPM(BPM bpm, float timeOffset)
     {
-        //as_sfx_breath.Play();
-        as_sfx_breath.pitch = (int)bpm/90;
-        as_sfx_breath.outputAudioMixerGroup.audioMixer.SetFloat("Pitch", 90 / (int)bpm);
+        as_sfx_breath.pitch = (float)bpm/90.0f;
         as_sfx_breath.PlayDelayed(timeOffset);
-
         as_sfx_breath.loop = true;
-        Debug.Log("one breath");
     }
 }

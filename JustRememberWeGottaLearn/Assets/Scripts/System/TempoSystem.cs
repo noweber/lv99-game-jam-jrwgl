@@ -139,7 +139,8 @@ public class TempoSystem : Singleton<TempoSystem>
 
     private void TryUpdateBPM()
     {
-        AudioManager.instance.StartPlayBPM(m_bpm, 1);
+        //for breath bgm test
+        AudioManager.instance.StartPlayBPM(m_bpm, 0);
         BPM oldBpm = m_bpm;
 
         if (m_breathFrequency < 45)
