@@ -27,10 +27,10 @@ public class TempoSystem : Singleton<TempoSystem>
     // Start is called before the first frame update
 
     public BPM StartBpm = BPM.bpm30;
-    [SerializeField] private int MinBF = 30;
-    [SerializeField] private int MaxBF = 180;
+    [SerializeField] private int m_minBF = 60;
+    [SerializeField] private int m_maxBF = 120;
     //[SerializeField] private BPM StartBpm = BPM.bpm30;
-    [SerializeField] private int InitialBF = 30;
+    
     [SerializeField] private float TakeDeepBreathInterval = 0.05f;
     [SerializeField] private int HitCountToHarmony = 3;
 
@@ -42,15 +42,21 @@ public class TempoSystem : Singleton<TempoSystem>
 
     public Action<BPM> OnBpmChange;
     public Action OnTryHit;
-
+    public Action OnBFLimitChange;
 
     public int BreathFrequency { get { return m_breathFrequency; } }
+    public int MinBF { get { return m_minBF; } }
+    public int MaxBF { get { return m_maxBF; } }    
 
     public override void Awake()
     {
         base.Awake();
         m_bpm = StartBpm;
-        m_breathFrequency = InitialBF;
+        m_breathFrequency = m_minBF;
+    }
+    public void DecrementHarmonyHitCount()
+    {
+        HitCountToHarmony--;
     }
     private void Start()
     {
@@ -66,20 +72,34 @@ public class TempoSystem : Singleton<TempoSystem>
         TempoReceiver.Instance.OnBeatMiss += HandleBeatMiss;
    
     }
+    public void DecrementBFLimt(int amount)
+    {
+        m_minBF -= amount;
+        OnBFLimitChange?.Invoke();
+    }
+    public void IncrementBFLimit(int amount)
+    {
+        m_maxBF += amount;
+        OnBFLimitChange?.Invoke();
+    }
+
 
     private void HandleBeatMiss(bool miss)
     {
-        if (miss)
+        if (m_state != BreathState.TakingDeepBreath)
         {
-            m_hitCount = 0;
-            m_state = BreathState.Normal;
-        }
-        else
-        {
-            m_hitCount++;
-            if (m_hitCount >= HitCountToHarmony)
+            if (miss)
             {
-                m_state = BreathState.Harmony;
+                m_hitCount = 0;
+                m_state = BreathState.Normal;
+            }
+            else
+            {
+                m_hitCount++;
+                if (m_hitCount >= HitCountToHarmony)
+                {
+                    m_state = BreathState.Harmony;
+                }
             }
         }
     }
@@ -129,9 +149,9 @@ public class TempoSystem : Singleton<TempoSystem>
                 m_timeUtilNextDeepBreath = TakeDeepBreathInterval;
 
             m_breathFrequency -= 1;
-            if (m_breathFrequency < MinBF)
+            if (m_breathFrequency < m_minBF)
             {
-                m_breathFrequency = MinBF;
+                m_breathFrequency = m_minBF;
             }
             TryUpdateBPM();
         }
@@ -180,12 +200,7 @@ public class TempoSystem : Singleton<TempoSystem>
         {
             TakeDeepBreath();
         }
-       
-
+      
     }
-
-
-    
-
 
 }

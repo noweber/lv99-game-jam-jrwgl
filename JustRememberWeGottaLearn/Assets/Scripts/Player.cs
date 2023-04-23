@@ -50,6 +50,7 @@ public class Player : Singleton<Player>
         }
         else if (Input.GetKeyUp(takeDeepBreathKey))
         {
+            Debug.Log("Stop Taking Breath");
             OnStopTakeBreath.Invoke();
             isTakingBreath = false;
         }

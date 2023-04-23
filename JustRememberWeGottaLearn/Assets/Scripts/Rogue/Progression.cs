@@ -6,6 +6,9 @@ using UnityEngine;
 public class Progression : Singleton<Progression>
 {
     [SerializeField] private int m_numDraw = 2;
+    [SerializeField] private int m_levelToRemoveR = 5;
+    [SerializeField] private int m_levelToRemoveSR = 10;
+
     public Action<List<Card>> OnShowUI;
 
     private List<Card> m_cardForSelect = new List<Card>();
@@ -16,12 +19,28 @@ public class Progression : Singleton<Progression>
     }
     private void DoLevelUp()
     {
+        if(Experience.Instance.Level == m_levelToRemoveR)
+        {
+            CardPool.Instance.RemoveAllCardsByRareness(CardRareness.R);
+        }
+        if (Experience.Instance.Level == m_levelToRemoveSR)
+        {
+            CardPool.Instance.RemoveAllCardsByRareness(CardRareness.SR);
+        }
         Time.timeScale = 0;
         m_cardForSelect = CardPool.Instance.DrawCards(m_numDraw);
         OnShowUI.Invoke(m_cardForSelect);
 
     }
 
+    public void IncrementNumberChoice()
+    {
+        m_numDraw++;
+        if(m_numDraw > 3)
+        {
+            m_numDraw = 3;
+        }
+    }
     private void DoPlayerSelection(int cardIndex)
     {
         Debug.Log(cardIndex);

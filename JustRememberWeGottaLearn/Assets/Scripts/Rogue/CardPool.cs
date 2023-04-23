@@ -58,4 +58,9 @@ public class CardPool : Singleton<CardPool>
     {
         m_cards.Add(card);
     }
+
+    public void RemoveAllCardsByRareness(CardRareness rareness)
+    {
+        m_cards.RemoveAll(card => card.Rareness == rareness);
+    }
 }

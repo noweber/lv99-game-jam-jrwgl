@@ -48,9 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartBpm: 30
-  MinBF: 30
-  MaxBF: 180
-  InitialBF: 30
+  m_minBF: 60
+  m_maxBF: 120
   TakeDeepBreathInterval: 0.05
   HitCountToHarmony: 3
 --- !u!114 &5231636026167648053
