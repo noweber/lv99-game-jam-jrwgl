@@ -19,8 +19,13 @@ public class CardSelectionUI : Singleton<CardSelectionUI>
     }
     private void ShowSelectionUI(List<Card> cards)
     {
+
         gameObject.SetActive(true);
-        for(int i = 0; i < CardSlots.Count; i++)
+        Button skipButton = transform.Find("Skip").GetComponent<Button>();
+        skipButton.onClick.AddListener(() => CardSelected(-1));
+
+
+        for (int i = 0; i < CardSlots.Count; i++)
         {
             GameObject cardSlot = CardSlots[i];
             cardSlot.SetActive(true);

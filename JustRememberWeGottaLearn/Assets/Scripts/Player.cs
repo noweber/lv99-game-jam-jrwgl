@@ -9,8 +9,8 @@ public class Player : Singleton<Player>
 
     public Action OnPlayerAttack;
     public Action OnPlayerDash;
-    public Action OnTakeDeepBreath;
-    public Action OnStopTakeBreath;
+    //public Action OnTakeDeepBreath;
+    //public Action OnStopTakeBreath;
     
     public HurtBox playerHurtBox;
     public Rigidbody2D playerRB;
@@ -43,6 +43,7 @@ public class Player : Singleton<Player>
     {
         playerController.SetMoveDirection(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
+        /*
         if (Input.GetKeyDown(takeDeepBreathKey))
         {
             OnTakeDeepBreath.Invoke();
@@ -54,7 +55,8 @@ public class Player : Singleton<Player>
             OnStopTakeBreath.Invoke();
             isTakingBreath = false;
         }
-        else if (Input.GetKeyDown(attackKey))
+        */
+        if (Input.GetKeyDown(attackKey))
         {
             if (!isTakingBreath)
             {

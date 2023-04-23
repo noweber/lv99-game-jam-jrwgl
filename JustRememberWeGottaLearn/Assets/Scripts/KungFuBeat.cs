@@ -67,7 +67,7 @@ public class KungFuBeat : MonoBehaviour
 
         if (transform.position.x > TempoReceiver.Instance.LeftDetectionPointX - 0.05f * movingSpeed && !m_playedSFX)
         {
-            Debug.Log("Player breating SFX");
+            //Debug.Log("Player breating SFX");
             m_playedSFX = true;
             AudioManager.instance.RequestSFX(SFXTYPE.breath);
         

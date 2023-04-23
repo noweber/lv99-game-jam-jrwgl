@@ -55,8 +55,8 @@ public class BreathIndicator : MonoBehaviour
 
         }
 
-        int segmentIndex = (TempoSystem.Instance.BreathFrequency - TempoSystem.Instance.MinBF )/ 5;
-        m_indicator.transform.position = transform.position +  (m_startPosition + Vector3.right * m_segmentInterval * segmentIndex) + m_indicatorDownOffset;
+        int segmentIndex = (TempoSystem.Instance.BreathFrequency - TempoSystem.Instance.MinBF );
+        m_indicator.transform.position = transform.position +  (m_startPosition + Vector3.right * (m_segmentInterval / 5) * segmentIndex) + m_indicatorDownOffset;
 
         for (int i = 0; i < m_numSegments; i++)
         {

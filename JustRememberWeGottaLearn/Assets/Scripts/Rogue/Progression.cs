@@ -45,16 +45,23 @@ public class Progression : Singleton<Progression>
     {
         Debug.Log(cardIndex);
         Debug.Log(m_cardForSelect.Count);
-        Card selectedCard = m_cardForSelect[cardIndex];
-        m_cardForSelect.RemoveAt(cardIndex);
 
+        if (cardIndex != -1)
+        {
+            //Not -1
+            Card selectedCard = m_cardForSelect[cardIndex];
+            m_cardForSelect.RemoveAt(cardIndex);
+            selectedCard.DoUpgrade();
+        }
+
+        //Add back.
         foreach(Card card in m_cardForSelect)
         {
             CardPool.Instance.AddCard(card);
         }
         m_cardForSelect.Clear();
         //Use card.
-        selectedCard.DoUpgrade();
+        //selectedCard.DoUpgrade();
 
         //Debug.Log("Player select: " + cardIndex.ToString());
         Time.timeScale = 1.0f;

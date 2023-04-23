@@ -29,6 +29,7 @@ public class TempoSystem : Singleton<TempoSystem>
     public BPM StartBpm = BPM.bpm30;
     [SerializeField] private int m_minBF = 60;
     [SerializeField] private int m_maxBF = 120;
+    [SerializeField] private float m_timeNeededToEnterBreathingState = 1.6f;
     //[SerializeField] private BPM StartBpm = BPM.bpm30;
     
     [SerializeField] private float TakeDeepBreathInterval = 0.05f;
@@ -37,6 +38,7 @@ public class TempoSystem : Singleton<TempoSystem>
     private BPM m_bpm;
     private int m_breathFrequency;
     private float m_timeUtilNextDeepBreath;
+    private float m_timeRemainToEnterBreathingState;
     private BreathState m_state;
     private int m_hitCount;
 
@@ -61,8 +63,8 @@ public class TempoSystem : Singleton<TempoSystem>
     private void Start()
     {
 
-        Player.Instance.OnTakeDeepBreath += HandleTakeBreath;
-        Player.Instance.OnStopTakeBreath += HandleStopTakingBreath;
+        //Player.Instance.OnTakeDeepBreath += HandleTakeBreath;
+        //Player.Instance.OnStopTakeBreath += HandleStopTakingBreath;
 
         foreach (KungFu kungfu in Player.Instance.GetComponents<KungFu>())
         {
@@ -104,6 +106,7 @@ public class TempoSystem : Singleton<TempoSystem>
         }
     }
 
+    /*
     private void HandleTakeBreath()
     {
         m_state = BreathState.TakingDeepBreath;
@@ -112,6 +115,7 @@ public class TempoSystem : Singleton<TempoSystem>
     {
         m_state = BreathState.Harmony;
     }
+    */
 
     
     private void HandleAttack(int attackBFIncrease)
@@ -120,7 +124,8 @@ public class TempoSystem : Singleton<TempoSystem>
         if (m_state != BreathState.Harmony)
         {
             m_breathFrequency += attackBFIncrease;
-;           
+;           m_state = BreathState.Normal;
+            m_timeRemainToEnterBreathingState = m_timeNeededToEnterBreathingState;
             TryUpdateBPM();
         }
     }
@@ -130,6 +135,8 @@ public class TempoSystem : Singleton<TempoSystem>
         if (m_state != BreathState.Harmony)
         {
             m_breathFrequency += dashBFIncrease;
+            m_state = BreathState.Normal;
+            m_timeRemainToEnterBreathingState = m_timeNeededToEnterBreathingState;
             TryUpdateBPM();
         }
     }
@@ -200,6 +207,15 @@ public class TempoSystem : Singleton<TempoSystem>
         if (m_state == BreathState.TakingDeepBreath)
         {
             TakeDeepBreath();
+        }
+        
+        if(m_timeRemainToEnterBreathingState > 0)
+        {
+            m_timeRemainToEnterBreathingState -= Time.deltaTime;
+        }
+        else if(m_state == BreathState.Normal)
+        {
+            m_state = BreathState.TakingDeepBreath;
         }
     }
 

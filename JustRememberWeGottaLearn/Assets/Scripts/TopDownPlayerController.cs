@@ -34,24 +34,37 @@ public class TopDownPlayerController : MonoBehaviour
 
     private void Start()
     {
-        Player.Instance.OnTakeDeepBreath += HandleTakeBreath;
-        Player.Instance.OnStopTakeBreath += HandleStopTakeBreath;
+        //Player.Instance.OnTakeDeepBreath += HandleTakeBreath;
+        //Player.Instance.OnStopTakeBreath += HandleStopTakeBreath;
     }
     public void SetMoveDirection(float moveInputHorizontal, float moveInputVertical)
     {
         moveDirection = new Vector2(moveInputHorizontal, moveInputVertical).normalized;
 
         if (moveInputHorizontal < 0)
+        {
             _currFaceDir = PlayerFaceDirection.left;
+            transform.localScale = new Vector3(MathF.Abs(transform.localScale.x) * -1, transform.localScale.y, transform.localScale.z);
+            return;
+        }
 
-        if (moveInputHorizontal > 0)
+        else if (moveInputHorizontal > 0)
+        {
             _currFaceDir = PlayerFaceDirection.right;
+            transform.localScale = new Vector3(MathF.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            return;
+        }
 
-        if (moveInputVertical < 0)
+        else if (moveInputVertical < 0)
+        {
             _currFaceDir = PlayerFaceDirection.down;
+            return;
+        }
 
-        if (moveInputVertical > 0)
+        else if (moveInputVertical > 0)
+        {
             _currFaceDir = PlayerFaceDirection.up;
+        }
     }
 
     public Vector3 GetPlayerDirection()
@@ -94,6 +107,7 @@ public class TopDownPlayerController : MonoBehaviour
         OnPlayerMove?.Invoke(transform.position - playerLastPosition);
         playerLastPosition = transform.position;
     }
+    /*
     private void HandleTakeBreath()
     {
         isTakingBreath = true;
@@ -102,4 +116,5 @@ public class TopDownPlayerController : MonoBehaviour
     {
         isTakingBreath = false;
     }
+    */
 }

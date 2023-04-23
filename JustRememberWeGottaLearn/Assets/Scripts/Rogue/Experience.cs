@@ -25,7 +25,7 @@ public class Experience : Singleton<Experience>
         
         if (nextLevelExp <= m_currentExp)
         {
-            Debug.Log(m_level);
+            //Debug.Log(m_level);
             m_currentExp = (m_currentExp) - nextLevelExp;
             m_level += 1;
             OnLevelUp?.Invoke();
