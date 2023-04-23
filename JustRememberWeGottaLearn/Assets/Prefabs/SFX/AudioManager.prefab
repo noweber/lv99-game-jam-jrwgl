@@ -187,12 +187,11 @@ MonoBehaviour:
     sounds:
     - {fileID: 8300000, guid: 6830218d8ba115c479ba36a2721eecf9, type: 3}
     volumes:
-    - 0.08
-    - 0.08
+    - 0.16
+    - 0.16
   - name: yell
     sounds:
-    - {fileID: 8300000, guid: 4f7ccfb5414277b44bba820314142f32, type: 3}
-    - {fileID: 8300000, guid: bb48950bb183cff479395884a1684ff5, type: 3}
+    - {fileID: 8300000, guid: aa8b95a457fc11d4b96dffe18a56d6c2, type: 3}
     volumes:
     - 0.08
     - 0.08
