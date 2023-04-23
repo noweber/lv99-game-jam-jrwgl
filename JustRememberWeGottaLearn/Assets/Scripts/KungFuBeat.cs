@@ -11,6 +11,7 @@ public class KungFuBeat : MonoBehaviour
    
     private SpriteRenderer _sprite;
     private bool m_inReceiver;
+    private bool m_playedSFX;
 
     // Start is called before the first frame update
     void Awake()
@@ -45,6 +46,7 @@ public class KungFuBeat : MonoBehaviour
 
 
         m_inReceiver = false;
+        m_playedSFX = false;
         gameObject.SetActive(false);
 
     }
@@ -61,6 +63,14 @@ public class KungFuBeat : MonoBehaviour
         {
             m_inReceiver = true;
             TempoReceiver.Instance.AddMe(this);
+        }
+
+        if (transform.position.x > TempoReceiver.Instance.LeftDetectionPointX - 0.05f * movingSpeed && !m_playedSFX)
+        {
+            Debug.Log("Player breating SFX");
+            m_playedSFX = true;
+            AudioManager.instance.RequestSFX(SFXTYPE.breath);
+        
         }
     }
 }

@@ -30,6 +30,7 @@ public class TempoReceiver : Singleton<TempoReceiver>
     }
     public void AddMe(KungFuBeat beat)
     {
+        //AudioManager.instance.RequestSFX(SFXTYPE.breath);
         m_beats.Add(beat);
     }
 

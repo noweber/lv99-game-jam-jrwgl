@@ -1664,6 +1664,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2123668409002602773}
     - target: {fileID: 1038151901306748300, guid: 6a1f6faccf2ee5743aa5e9eec4396349, type: 3}
+      propertyPath: VFX
+      value: 
+      objectReference: {fileID: 8418707241707732409, guid: e58b24cbb9ca35e4388c4fbd2df1832f, type: 3}
+    - target: {fileID: 1038151901306748300, guid: 6a1f6faccf2ee5743aa5e9eec4396349, type: 3}
       propertyPath: dashDistance
       value: 1
       objectReference: {fileID: 0}
@@ -1676,6 +1680,10 @@ PrefabInstance:
       value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1038151901306748302, guid: 6a1f6faccf2ee5743aa5e9eec4396349, type: 3}
+      propertyPath: VFX
+      value: 
+      objectReference: {fileID: 9011509815105988721, guid: 97fd72aef2f7e094fb8639eb5f0df60c, type: 3}
+    - target: {fileID: 1038151901306748302, guid: 6a1f6faccf2ee5743aa5e9eec4396349, type: 3}
       propertyPath: DashTime
       value: 0.2
       objectReference: {fileID: 0}
@@ -1683,6 +1691,10 @@ PrefabInstance:
       propertyPath: dashDistance
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1038151901306748303, guid: 6a1f6faccf2ee5743aa5e9eec4396349, type: 3}
+      propertyPath: VFX
+      value: 
+      objectReference: {fileID: 9011509815105988721, guid: 97fd72aef2f7e094fb8639eb5f0df60c, type: 3}
     - target: {fileID: 1038151901306748303, guid: 6a1f6faccf2ee5743aa5e9eec4396349, type: 3}
       propertyPath: dashDistance
       value: 1
@@ -2103,6 +2115,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5231636025071832561, guid: 51dd1a1e3e8d52942a53f28f0261422f, type: 3}
+      propertyPath: detectionZoneRadius
+      value: 1.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5231636026167648056, guid: 51dd1a1e3e8d52942a53f28f0261422f, type: 3}
       propertyPath: m_Name
       value: TempoSystem
