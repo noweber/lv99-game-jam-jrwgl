@@ -7,7 +7,8 @@ public enum SFXTYPE
     player_attack = 0,
     health_reduction,
     yell,
-    breath
+    breath,
+    dash
 }
 
 public class AudioManager : MonoBehaviour

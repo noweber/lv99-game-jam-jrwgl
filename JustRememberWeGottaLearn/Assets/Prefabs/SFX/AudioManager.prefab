@@ -202,6 +202,12 @@ MonoBehaviour:
     volumes:
     - 1
     - 1
+  - name: dash
+    sounds:
+    - {fileID: 8300000, guid: a7bc74ae6a8c646418a3fd5faaa3d464, type: 3}
+    volumes:
+    - 0.2
+    - 0.2
 --- !u!1 &5908053016683890874
 GameObject:
   m_ObjectHideFlags: 0
