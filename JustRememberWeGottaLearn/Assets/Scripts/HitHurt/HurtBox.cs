@@ -10,6 +10,7 @@ namespace Assets.Scripts.HitHurt
 {
     public class HurtBox : MonoBehaviour, IHurtBox
     {
+        [SerializeField] private float maxHP = 10;
 
         [SerializeField] private float hitPoints = 10;
 
@@ -39,6 +40,10 @@ namespace Assets.Scripts.HitHurt
             {
                 HitPointsAreZero = Die;
             }
+            if(gameObject.tag == "Player")
+            {
+                Experience.Instance.OnLevelUp += RefillHP;
+            }
         }
 
         public float GetHitPoints()
@@ -46,6 +51,15 @@ namespace Assets.Scripts.HitHurt
             return hitPoints;
         }
 
+        public void RefillHP()
+        {
+            hitPoints = maxHP;
+        }
+
+        public void IncreaseMaxHP(int amount)
+        {
+            maxHP += amount;
+        }
         public void Heal(int healAmount)
         {
             UpdateHitPoints();

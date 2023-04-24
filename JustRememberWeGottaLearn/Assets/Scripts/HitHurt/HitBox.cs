@@ -36,7 +36,7 @@ namespace Assets.Scripts.HitHurt
 
         protected virtual void OnTriggerEnter2D(Collider2D other)
         {
-            Debug.Log(MethodBase.GetCurrentMethod().DeclaringType.Name + "::" + MethodBase.GetCurrentMethod());
+            //Debug.Log(MethodBase.GetCurrentMethod().DeclaringType.Name + "::" + MethodBase.GetCurrentMethod());
             TryDamageObject(other);
         }
 
