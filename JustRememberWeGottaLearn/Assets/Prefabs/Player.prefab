@@ -19,8 +19,8 @@ GameObject:
   - component: {fileID: 1038151901306748300}
   - component: {fileID: 1038151901306748303}
   - component: {fileID: 1038151901306748302}
-  - component: {fileID: 1038151901306748305}
   - component: {fileID: 1038151901306748304}
+  - component: {fileID: 2587730510886312904}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -157,6 +157,7 @@ MonoBehaviour:
   hitPoints: 10
   hitPointsText: {fileID: 0}
   damageText: {fileID: 0}
+  destroyGameObjectWhenHitPointsAreZero: 1
 --- !u!114 &1038151901306748296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,8 +224,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b40e71eae8b0904a817891014ab3fe6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashDist: 1
+  dashDistance: 0
   attackAbility: {fileID: 2857347583962712069, guid: 5863a89c44f832849ba8bebb9d0cdbcd, type: 3}
+  VFX: {fileID: 0}
+  VFXOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1038151901306748303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,8 +240,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c14a0e93be9058b4da4f115e409e8d4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashDist: 3
+  dashDistance: 0
+  DashTime: 0.1
   attackAbility: {fileID: 1097258837056083609, guid: 3262f5d75e14df840965fe567e8540cc, type: 3}
+  isUpgrade: 0
+  VFX: {fileID: 0}
 --- !u!114 &1038151901306748302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,24 +257,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a32b0e581ebb8124794c2d60251b3c4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashDist: 2
+  dashDistance: 0
+  DashTime: 0.1
   attackAbility: {fileID: 6272620270087962646, guid: 6771c457a05e4a944898a7582be70714, type: 3}
   pushBox: {fileID: 6397728478120496654, guid: e23ca970c3a403e418861ec693997bac, type: 3}
   forwardOffset: 3
---- !u!114 &1038151901306748305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1038151901306748291}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02c3c481decec3d42bcee067b6bb1634, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healingAmount: 1
-  healingInterval: 0.5
+  isUpgrade: 0
+  upgradeAttackMoveTime: 0
+  VFX: {fileID: 0}
 --- !u!114 &1038151901306748304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,6 +277,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 248acab2511a2724c9d35f2d8e26ccb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dashDistance: 0
   OOBDamage: 1
-  dashDist: 0.5
   attackAbility: {fileID: 0}
+--- !u!114 &2587730510886312904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1038151901306748291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f81f3751f4bff1d45860774f47789ebb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundEffectAudioClip: {fileID: 0}
+  soundEffectAudioSource: {fileID: 0}
+  soundEffectMinimumPitch: 1
+  soundEffectMaximumPitch: 1
+  CurrentLevel: 0
+  BaseLevelUpExperiencePointsCost: 0
+  ExperiencePointsToNextLevel: 0

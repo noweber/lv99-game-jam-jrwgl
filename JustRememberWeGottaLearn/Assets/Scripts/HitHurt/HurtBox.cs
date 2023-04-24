@@ -19,9 +19,14 @@ namespace Assets.Scripts.HitHurt
 
         public event Action<GameObject> OnHurt;
 
+        public event Action HitPointsAreZero;
+
+        [SerializeField] private bool destroyGameObjectWhenHitPointsAreZero = true;
+
         public Action OnPlayerReceiveDmg;
 
         public Action<Vector3, int> OnDamaged;
+
         void Start()
         {
             UpdateHitPoints();
@@ -30,7 +35,10 @@ namespace Assets.Scripts.HitHurt
             {
                 OnDamaged += (Vector3 position, int damage) => { DamagePopup.Create(position, damage); };
             }
-
+            if (destroyGameObjectWhenHitPointsAreZero)
+            {
+                HitPointsAreZero = Die;
+            }
         }
 
         public float GetHitPoints()
@@ -76,8 +84,10 @@ namespace Assets.Scripts.HitHurt
                 {
                     Instantiate(damageText, transform.position, Quaternion.identity).GetComponent<DamageText>().SetText(damage.ToString());
                 }
-
-                Destroy(gameObject);
+                if (HitPointsAreZero != null)
+                {
+                    HitPointsAreZero.Invoke();
+                }
             }
         }
 
@@ -88,6 +98,10 @@ namespace Assets.Scripts.HitHurt
             {
                 hitPointsText.text = GetHitPoints().ToString();
             }
+        }
+        protected virtual void Die()
+        {
+            Destroy(gameObject);
         }
     }
 }
