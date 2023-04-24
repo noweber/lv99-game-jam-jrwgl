@@ -16,7 +16,7 @@ namespace Assets.Scripts.Audio
 
         protected virtual void Awake()
         {
-            ValitePitchRange();
+            ValidatePitchRange();
         }
 
         protected virtual void Start()
@@ -39,7 +39,7 @@ namespace Assets.Scripts.Audio
                 return;
             }
 
-            ValitePitchRange();
+            ValidatePitchRange();
 
             float originalPitch = soundEffectAudioSource.pitch;
             if (shouldRandomizePitch)
@@ -54,7 +54,7 @@ namespace Assets.Scripts.Audio
             soundEffectAudioSource.pitch = originalPitch;
         }
 
-        private void ValitePitchRange()
+        private void ValidatePitchRange()
         {
             if (soundEffectMinimumPitch < -3f)
             {
