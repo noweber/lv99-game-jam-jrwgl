@@ -22,7 +22,7 @@ public class UI_StartMenu : MonoBehaviour
 
     private void StartBtnClicked()
     {
-        SceneManager.LoadScene("Play");
+        SceneManager.LoadScene("LihaoTestScene");
     }
 
     private void CreditBtnClicked()

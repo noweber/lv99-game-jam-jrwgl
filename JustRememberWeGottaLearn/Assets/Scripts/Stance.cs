@@ -36,10 +36,10 @@ public class Stance : Singleton<Stance>
         switch (bpm)
         {
             case BPM.bpm30:
-                currentStance = stance.WingChun;
+                currentStance = stance.BruceLee;
                 break;
             case BPM.bpm60:
-                currentStance = stance.WingChun;
+                currentStance = stance.ShaolinKungFu;
                 break;
             case BPM.bpm90:
                 currentStance = stance.WingChun;
