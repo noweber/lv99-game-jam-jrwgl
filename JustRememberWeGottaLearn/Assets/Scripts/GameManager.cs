@@ -11,11 +11,13 @@ public class GameManager : Singleton<GameManager>
     private void Initialization()
     {
         Player.Instance.playerHurtBox.OnPlayerReceiveDmg += OnPlayerDeath;
+        WaveSpawner.Instance.Win += OnPlayerWin;
     }
     
     private void Start()
     {
         Initialization();
+        
     }
 
     public override void Awake()
@@ -44,7 +46,20 @@ public class GameManager : Singleton<GameManager>
         {
             //Player Death
             DG.Tweening.DOTween.KillAll();
-            SceneManager.LoadScene("Retry Scene");
+            //SceneManager.LoadScene("Retry Scene");
+            StartCoroutine(Wait5sAndLoadScene());
         }
+    }
+    private void OnPlayerWin()
+    {
+        DG.Tweening.DOTween.KillAll();
+        //SceneManager.LoadScene("Retry Scene");
+        StartCoroutine(Wait5sAndLoadScene());
+    }
+
+    private IEnumerator Wait5sAndLoadScene()
+    {
+        yield return new WaitForSeconds(5);
+        SceneManager.LoadScene("Retry Scene");
     }
 }

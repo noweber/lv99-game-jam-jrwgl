@@ -17,11 +17,12 @@ public class Experience : Singleton<Experience>
     public Action OnLevelUp;
     public Action<float> OnExpChangePercentage; // For UI
     public int Level { get { return m_level; } }
-    [Command()]
+   
     private void Start()
     {
         OnHitTextPopup += (Vector3 position, string text) => { TextPopup.Create(position, text); };
     }
+    [Command()]
     public void GainExp(int expAmount)
     {
 

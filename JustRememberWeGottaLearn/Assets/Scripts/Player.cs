@@ -15,6 +15,7 @@ public class Player : Singleton<Player>
     public HurtBox playerHurtBox;
     public Rigidbody2D playerRB;
     public TopDownPlayerController playerController;
+    public bool stopTakingInput = false;
 
     [SerializeField] private KeyCode attackKey = KeyCode.Space;
     [SerializeField] private KeyCode dashKey = KeyCode.LeftShift;
@@ -35,44 +36,48 @@ public class Player : Singleton<Player>
         playerController = GetComponent<TopDownPlayerController>();
 
     }
+    private void Start()
+    {
+        Experience.Instance.OnLevelUp += HandleLevelUp;
+    }
     public void AddCard(Card card)
     {
         m_collection.Add(card);
     }
+
+    private void HandleLevelUp()
+    {
+        stopTakingInput = true;
+
+    }
     private void Update()
     {
+        if (stopTakingInput)
+        {
+            return;
+        }
         playerController.SetMoveDirection(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-        /*
-        if (Input.GetKeyDown(takeDeepBreathKey))
+        if (Time.timeScale != 0f)
         {
-            OnTakeDeepBreath.Invoke();
-            isTakingBreath = true;
-        }
-        else if (Input.GetKeyUp(takeDeepBreathKey))
-        {
-            Debug.Log("Stop Taking Breath");
-            OnStopTakeBreath.Invoke();
-            isTakingBreath = false;
-        }
-        */
-        if (Input.GetKeyDown(attackKey))
-        {
-            if (!isTakingBreath)
+            
+            if (Input.GetKeyDown(attackKey))
             {
-                AudioManager.instance.RequestSFX(SFXTYPE.yell);
-                OnPlayerAttack.Invoke();
+                if (!isTakingBreath)
+                {
+                    AudioManager.instance.RequestSFX(SFXTYPE.yell);
+                    OnPlayerAttack.Invoke();
+                }
+            }
+            else if (Input.GetKeyDown(dashKey))
+            {
+                if (!isTakingBreath)
+                {
+                    AudioManager.instance.RequestSFX(SFXTYPE.dash);
+                    OnPlayerDash.Invoke();
+                }
             }
         }
-        else if (Input.GetKeyDown(dashKey))
-        {
-            if (!isTakingBreath)
-            {
-                AudioManager.instance.RequestSFX(SFXTYPE.dash);
-                OnPlayerDash.Invoke();
-            }
-        }
-        
 
     }
 

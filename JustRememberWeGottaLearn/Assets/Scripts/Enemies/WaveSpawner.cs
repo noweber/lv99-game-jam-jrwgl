@@ -12,7 +12,7 @@ public struct SpawnPD
     
     public int Total { get { return AlphaPD + BetaPD + OmegaPD; } }
 }
-public class WaveSpawner : MonoBehaviour
+public class WaveSpawner : Singleton<WaveSpawner>
 {
     // Start is called before the first frame update
     public float NormalInterval = 15.0f;
@@ -69,11 +69,12 @@ public class WaveSpawner : MonoBehaviour
 
             if(spawnType < SpawnWave[m_currentWave].AlphaPD)
             {
-                Instantiate(Alpha, spawnPos.position, Quaternion.identity);
+                //Instantiate(Alpha, spawnPos.position, Quaternion.identity);
+                SpawnAlpha(spawnPos.position);
             }
             else if(spawnType < SpawnWave[m_currentWave].AlphaPD + SpawnWave[m_currentWave].BetaPD)
             {
-                Instantiate(Beta, spawnPos.position, Quaternion.identity);
+                SpawnBeta(spawnPos.position);
             }
             else
             {
@@ -98,7 +99,51 @@ public class WaveSpawner : MonoBehaviour
 
     }
     
-    
+    private void SpawnAlpha(Vector3 spawnPos)
+    {
+        if(m_currentWave <= 3)
+        {
+            Instantiate(Alpha, spawnPos, Quaternion.identity);
+        }
+        else if (m_currentWave <= 6)
+        {
+            Instantiate(Alpha, spawnPos, Quaternion.identity);
+            Instantiate(Alpha, spawnPos, Quaternion.identity);
+        }
+        else
+        {
+            Instantiate(Alpha, spawnPos, Quaternion.identity);
+            Instantiate(Alpha, spawnPos, Quaternion.identity);
+            Instantiate(Alpha, spawnPos, Quaternion.identity);
+            Instantiate(Alpha, spawnPos, Quaternion.identity);
+        }
+    }
+
+    private void SpawnBeta(Vector3 spawnPos)
+    {
+        if (m_currentWave <= 3)
+        {
+            for(int i = 0; i < 5; i ++)
+            {
+                Instantiate(Beta, spawnPos, Quaternion.identity);
+            }
+        }
+        else if (m_currentWave <= 6)
+        {
+            for (int i = 0; i < 7; i++)
+            {
+                Instantiate(Beta, spawnPos, Quaternion.identity);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                Instantiate(Beta, spawnPos, Quaternion.identity);
+            }
+        }
+    }
+
 
 
 }

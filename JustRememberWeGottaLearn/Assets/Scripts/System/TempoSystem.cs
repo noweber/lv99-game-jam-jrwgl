@@ -33,7 +33,7 @@ public class TempoSystem : Singleton<TempoSystem>
     //[SerializeField] private BPM StartBpm = BPM.bpm30;
     
     [SerializeField] private float TakeDeepBreathInterval = 0.05f;
-    [SerializeField] private int HitCountToHarmony = 3;
+    [SerializeField] private int HitCountToHarmony = 1;
 
     private BPM m_bpm;
     private int m_breathFrequency;
@@ -170,20 +170,27 @@ public class TempoSystem : Singleton<TempoSystem>
         //AudioManager.instance.StartPlayBPM(m_bpm, 0);
         BPM oldBpm = m_bpm;
 
-        if (m_breathFrequency < 45)
-            m_bpm = BPM.bpm30;
-        else if (m_breathFrequency <= 75)
-            m_bpm = BPM.bpm60;
-        else if (m_breathFrequency <= 105)
-            m_bpm = BPM.bpm90;
-        else if (m_breathFrequency <= 135)
-            m_bpm = BPM.bpm120;
-        else if (m_breathFrequency <= 165)
-            m_bpm = BPM.bpm150;
-        else if (m_breathFrequency <= 195)
-            m_bpm = BPM.bpm180;
-        else
+        if (m_breathFrequency >= m_maxBF)
+        {
             m_bpm = BPM.bpm180plus;
+        }
+        else
+        {
+            if (m_breathFrequency < 45)
+                m_bpm = BPM.bpm30;
+            else if (m_breathFrequency <= 75)
+                m_bpm = BPM.bpm60;
+            else if (m_breathFrequency <= 105)
+                m_bpm = BPM.bpm90;
+            else if (m_breathFrequency <= 135)
+                m_bpm = BPM.bpm120;
+            else if (m_breathFrequency <= 165)
+                m_bpm = BPM.bpm150;
+            else if (m_breathFrequency <= 195)
+                m_bpm = BPM.bpm180;
+            else
+                m_bpm = BPM.bpm180plus;
+        }
 
        
 

@@ -399,11 +399,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1446831537657163734, guid: a34daaf3a3e8be949a2ab6effcf5b018, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 1446831537657163734, guid: a34daaf3a3e8be949a2ab6effcf5b018, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 1446831537657163734, guid: a34daaf3a3e8be949a2ab6effcf5b018, type: 3}
       propertyPath: m_LocalPosition.x
@@ -691,6 +691,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OutOfBreathIndicator
       objectReference: {fileID: 0}
+    - target: {fileID: 6298386253250685656, guid: eef38054bb8676c4d96808e96a0154db, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6298386253250685658, guid: eef38054bb8676c4d96808e96a0154db, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -725,7 +729,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6298386253250685658, guid: eef38054bb8676c4d96808e96a0154db, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 6298386253250685658, guid: eef38054bb8676c4d96808e96a0154db, type: 3}
       propertyPath: m_LocalPosition.x
@@ -803,7 +807,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5482967598713655880, guid: 62bf86c2cbfaff14282e7d75e0d335e4, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5482967598713655881, guid: 62bf86c2cbfaff14282e7d75e0d335e4, type: 3}
       propertyPath: m_Pivot.x

@@ -50,6 +50,7 @@ MonoBehaviour:
   StartBpm: 30
   m_minBF: 60
   m_maxBF: 120
+  m_timeNeededToEnterBreathingState: 1.2
   TakeDeepBreathInterval: 0.05
   HitCountToHarmony: 3
 --- !u!114 &5231636026167648053
@@ -133,6 +134,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5231636026167648058}
     m_Modifications:
+    - target: {fileID: 4317286026498767120, guid: 2c8dc2228464fa94fb442c75699ce921, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4317286026498767120, guid: 2c8dc2228464fa94fb442c75699ce921, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 557924541
+      objectReference: {fileID: 0}
     - target: {fileID: 4317286026498767121, guid: 2c8dc2228464fa94fb442c75699ce921, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -179,7 +188,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4317286026498767122, guid: 2c8dc2228464fa94fb442c75699ce921, type: 3}
       propertyPath: detectionZoneRadius
-      value: 0.8
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 4317286026498767125, guid: 2c8dc2228464fa94fb442c75699ce921, type: 3}
       propertyPath: m_Name

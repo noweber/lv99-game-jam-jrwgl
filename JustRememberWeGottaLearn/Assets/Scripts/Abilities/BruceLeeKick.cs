@@ -30,6 +30,12 @@ public class BruceLeeKick : KungFu
     {
         _stance = Stance.stance.BruceLee;
     }
+
+    public void DoUpgrade()
+    {
+        isUpgrade = true;
+        isUpgradeAttacking = true;
+    }
     
     public override void Attack()
     {

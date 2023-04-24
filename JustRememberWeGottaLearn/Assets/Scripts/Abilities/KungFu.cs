@@ -10,8 +10,8 @@ public abstract class KungFu : MonoBehaviour
 
     protected Stance.stance _stance;
     
-    protected int attackBreathIncrease = 3;
-    protected int dashBreathIncrease = 2;
+    protected int attackBreathIncrease = 2;
+    protected int dashBreathIncrease = 1;
 
     public Action<int> OnKungFuAttack;
     public Action<int> OnKungFuDash;

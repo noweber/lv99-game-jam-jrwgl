@@ -23,6 +23,10 @@ public class Shaolin : KungFu
     {
         _stance = Stance.stance.ShaolinKungFu;
     }
+    public void DoUpgrade()
+    {
+        isUpgrade = true;
+    }
 
     public override void Attack()
     {

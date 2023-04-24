@@ -28,6 +28,7 @@ public class Progression : Singleton<Progression>
             CardPool.Instance.RemoveAllCardsByRareness(CardRareness.SR);
         }
         Time.timeScale = 0;
+        Player.Instance.stopTakingInput = true;
         m_cardForSelect = CardPool.Instance.DrawCards(m_numDraw);
         OnShowUI.Invoke(m_cardForSelect);
 
@@ -65,5 +66,6 @@ public class Progression : Singleton<Progression>
 
         //Debug.Log("Player select: " + cardIndex.ToString());
         Time.timeScale = 1.0f;
+        Player.Instance.stopTakingInput = false;
     }
 }

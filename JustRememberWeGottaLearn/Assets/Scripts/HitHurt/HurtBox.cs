@@ -10,9 +10,9 @@ namespace Assets.Scripts.HitHurt
 {
     public class HurtBox : MonoBehaviour, IHurtBox
     {
-        [SerializeField] private float maxHP = 10;
+        [SerializeField] public float maxHP = 10;
 
-        [SerializeField] private float hitPoints = 10;
+        [SerializeField] public float hitPoints = 10;
 
         [SerializeField] private TextMeshProUGUI hitPointsText;
 

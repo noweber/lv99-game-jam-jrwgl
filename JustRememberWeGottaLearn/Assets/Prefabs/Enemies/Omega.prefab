@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2145929832512760490}
   - component: {fileID: 2145929832512760489}
   - component: {fileID: 5151344632911478101}
+  - component: {fileID: 2813109388437865863}
   m_Layer: 6
   m_Name: Omega
   m_TagString: Enemy
@@ -67,7 +68,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a2e878fdb16706489c113dffab7de79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoints: 40
+  maxHP: 80
+  hitPoints: 80
   hitPointsText: {fileID: 0}
   damageText: {fileID: 168693653855988796, guid: 7a207ec32f7e177489d57e8383905ea8, type: 3}
   destroyGameObjectWhenHitPointsAreZero: 1
@@ -97,7 +99,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 150
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -149,6 +151,32 @@ MonoBehaviour:
   MaxSpawnCountPerPrefab: 1
   PrefabsWhichAlwaysSpawn:
   - {fileID: 2597337770302958926, guid: 7e473327ffbeba4448168e176e7bf6e0, type: 3}
+--- !u!61 &2813109388437865863
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2145929832512760484}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &2145929833180163331
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,8 +247,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1967165647
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0.5019608, g: 0.2509804, b: 0.2509804, a: 1}
