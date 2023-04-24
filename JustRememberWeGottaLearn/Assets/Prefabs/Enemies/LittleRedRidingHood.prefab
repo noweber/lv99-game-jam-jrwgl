@@ -144,11 +144,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0626fe89cd5744d42bf68b9bd89fe6bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PrefabsWithAChanceToSpawn:
-  - {fileID: 9122848400667855351, guid: a47e9fcac6069aa4d80556bf5d271e82, type: 3}
+  PrefabsWithAChanceToSpawn: []
   PercentChanceToSpawnEachPrefab: 0.25
   MaxSpawnCountPerPrefab: 1
-  PrefabsWhichAlwaysSpawn: []
+  PrefabsWhichAlwaysSpawn:
+  - {fileID: 7999413878436085066, guid: 64d8695a924573740b4a4a9bab9b1860, type: 3}
 --- !u!1 &1692984482890159443
 GameObject:
   m_ObjectHideFlags: 0

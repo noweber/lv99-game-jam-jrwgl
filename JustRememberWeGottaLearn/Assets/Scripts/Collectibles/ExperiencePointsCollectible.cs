@@ -10,7 +10,9 @@ namespace Assets.Scripts.Collectibles
 
         protected override bool TryToBeCollectedBy(GameObject collectorGameObject)
         {
-            Debug.Log(MethodBase.GetCurrentMethod().DeclaringType.Name + "::" + MethodBase.GetCurrentMethod());
+            //Debug.Log(MethodBase.GetCurrentMethod().DeclaringType.Name + "::" + MethodBase.GetCurrentMethod());
+            //Experience.Instance.GainExp(ExperiencePointsValue);
+            
             var levelUpController = collectorGameObject.GetComponent<ILevelUpController>();
             if (levelUpController != null)
             {

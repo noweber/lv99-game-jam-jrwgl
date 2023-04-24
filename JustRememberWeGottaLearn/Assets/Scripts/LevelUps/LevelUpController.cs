@@ -23,6 +23,7 @@ namespace Assets.Scripts.LevelUps
 
         public void AddExperiencePoints(int experiencePoints)
         {
+            Experience.Instance.GainExp(experiencePoints);
             ExperiencePointsToNextLevel -= experiencePoints;
             if (ExperiencePointsToNextLevel <= 0)
             {
