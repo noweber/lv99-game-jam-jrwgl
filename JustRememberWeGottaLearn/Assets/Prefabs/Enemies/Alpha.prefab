@@ -54,7 +54,7 @@ MonoBehaviour:
   damage: 2
   rateOfFireInSeconds: 1
   hitSound: {fileID: 0}
-  numberOfHitsRemainingBeforeDestruction: 1
+  numberOfHitsRemainingBeforeDestruction: 100
   CanCauseInfiniteHits: 1
 --- !u!114 &4281619869113309752
 MonoBehaviour:
@@ -85,7 +85,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c2dcf22f5dc1814781555db5aaff51d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 3.5
   randomSpeedMagnitude: 0.5
 --- !u!50 &4281619869113309748
 Rigidbody2D:

@@ -10,8 +10,8 @@ public abstract class KungFu : MonoBehaviour
 
     protected Stance.stance _stance;
     
-    protected int attackBreathIncrease = 2;
-    protected int dashBreathIncrease = 1;
+    protected int attackBreathIncrease = 3;
+    protected int dashBreathIncrease = 2;
 
     public Action<int> OnKungFuAttack;
     public Action<int> OnKungFuDash;
@@ -42,7 +42,7 @@ public abstract class KungFu : MonoBehaviour
 
     protected virtual void DoPlayerAttack()
     {
-        if (enabled)
+        if (enabled && Time.timeScale != 0)
         {
             Attack();
             OnKungFuAttack.Invoke(attackBreathIncrease);
@@ -51,7 +51,7 @@ public abstract class KungFu : MonoBehaviour
 
     protected virtual void DoPlayerDash()
     {
-        if (enabled)
+        if (enabled && Time.timeScale != 0)
         {
             Dash();
             OnKungFuDash.Invoke(dashBreathIncrease);

@@ -47,19 +47,25 @@ public class GameManager : Singleton<GameManager>
             //Player Death
             DG.Tweening.DOTween.KillAll();
             //SceneManager.LoadScene("Retry Scene");
-            StartCoroutine(Wait5sAndLoadScene());
+            StartCoroutine(Wait2sAndLoadScene());
         }
     }
     private void OnPlayerWin()
     {
         DG.Tweening.DOTween.KillAll();
         //SceneManager.LoadScene("Retry Scene");
-        StartCoroutine(Wait5sAndLoadScene());
+        StartCoroutine(Wait2sAndWin());
     }
 
-    private IEnumerator Wait5sAndLoadScene()
+    private IEnumerator Wait2sAndLoadScene()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(2);
         SceneManager.LoadScene("Retry Scene");
+    }
+
+    private IEnumerator Wait2sAndWin()
+    {
+        yield return new WaitForSeconds(20);
+        SceneManager.LoadScene("Win Scene");
     }
 }

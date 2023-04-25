@@ -136,9 +136,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 3
-  rateOfFireInSeconds: 1
+  rateOfFireInSeconds: 0.5
   hitSound: {fileID: 0}
-  numberOfHitsRemainingBeforeDestruction: 1
+  numberOfHitsRemainingBeforeDestruction: 100
   CanCauseInfiniteHits: 1
 --- !u!114 &4526185036596577199
 MonoBehaviour:
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c2dcf22f5dc1814781555db5aaff51d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4.5
+  speed: 6
   randomSpeedMagnitude: 0.5
 --- !u!50 &4526185036596577187
 Rigidbody2D:
@@ -183,7 +183,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 5
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0

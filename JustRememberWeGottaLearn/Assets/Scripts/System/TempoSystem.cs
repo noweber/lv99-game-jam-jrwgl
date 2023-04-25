@@ -150,7 +150,7 @@ public class TempoSystem : Singleton<TempoSystem>
         if (m_timeUtilNextDeepBreath <= 0)
         {
             if (m_bpm == BPM.bpm180plus)
-                m_timeUtilNextDeepBreath = TakeDeepBreathInterval * 10;
+                m_timeUtilNextDeepBreath = TakeDeepBreathInterval * 3;
             else
                 m_timeUtilNextDeepBreath = TakeDeepBreathInterval;
 
@@ -203,7 +203,7 @@ public class TempoSystem : Singleton<TempoSystem>
         if (m_bpm == BPM.bpm180plus && m_state != BreathState.TakingDeepBreath)
         {
             //Try to discourage player to go over the breath limit.
-            m_breathFrequency += 20;
+            m_breathFrequency += 10;
         }
     }
 

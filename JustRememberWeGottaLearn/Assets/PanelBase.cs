@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class PanelBase : MonoBehaviour
 {
+    [SerializeField]
     private Button closeBTN;
 
     private void Awake()
     {
-        closeBTN = FindObjectOfType<Button>();
         closeBTN.onClick.AddListener(OnClose);
     }
 
