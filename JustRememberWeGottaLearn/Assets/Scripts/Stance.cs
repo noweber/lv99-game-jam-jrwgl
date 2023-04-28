@@ -1,78 +1,69 @@
+using QFSW.QC.Actions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TerrainTools;
 
 public class Stance : Singleton<Stance>
 {
-    [SerializeField] private Vector2 BalanceFreqRange;
-    [SerializeField] private Vector2 ShaolinKungFuFreqRange;
-    [SerializeField] private Vector2 WingChunFreqRange;
-
-    [SerializeField] private float maxTimeFrameForOOB;
-
-
-    private float _lastInFreqRangeTimeStamp;
-    
     public stance currentStance;
-    public Action switchStance;
+    public Action onSwitchStance;
+
+    [SerializeField] private stance startStance = stance.BruceLee;
     public enum stance
     {
-        Balance,
-        OutOfBreath,
         ShaolinKungFu,
         WingChun,
+        BruceLee,
+        OutOfBreath
     }
 
-    private void Awake()
+    public override void Awake()
     {
-        currentStance = stance.Balance;
-        _lastInFreqRangeTimeStamp = Time.time;
+        base.Awake();
+        currentStance = startStance;
     }
-
-    private void Update()
+    private void Start()
     {
-        if(Time.time - _lastInFreqRangeTimeStamp > maxTimeFrameForOOB)
-        {
-            //Switch stance because out of breath;
-            currentStance = stance.OutOfBreath;
-            switchStance.Invoke();
-        }
-
-        if(Input.GetKeyDown(KeyCode.Z))
-        {
-            //Switch Stance Actively
-            currentStance = FreqInWhatStance(RhythmSystem.Instance.GetFrequency());
-            switchStance.Invoke();
-        }
-
-        if(FreqInWhatStance(RhythmSystem.Instance.GetFrequency()) == currentStance)
-        {
-            _lastInFreqRangeTimeStamp = Time.time;
-        }
-
-    }
-
-    private stance FreqInWhatStance(float freq)
-    {
-        if(freq < BalanceFreqRange[1] && freq > BalanceFreqRange[0]){
-            return stance.Balance;
-        }
-        else if (freq < ShaolinKungFuFreqRange[1] && freq > ShaolinKungFuFreqRange[0])
-        {
-            return stance.ShaolinKungFu;
-        }
-        else if (freq < WingChunFreqRange[1] && freq > WingChunFreqRange[0])
-        {
-            return stance.WingChun;
-        }
-
-
         
-        return stance.Balance;
+        TempoSystem.Instance.OnBpmChange += DoStanceUpdate;
+    }
+   
+    private void DoStanceUpdate(BPM bpm)
+    {
+        stance oldStance = currentStance;
+        switch (bpm)
+        {
+            case BPM.bpm30:
+                currentStance = stance.ShaolinKungFu;
+                break;
+            case BPM.bpm60:
+                currentStance = stance.ShaolinKungFu;
+                break;
+            case BPM.bpm90:
+                currentStance = stance.BruceLee;
+                break;
+            case BPM.bpm120:
+                currentStance = stance.BruceLee;
+                break;
+            case BPM.bpm150:
+                currentStance = stance.WingChun;
+                break;
+            case BPM.bpm180:
+                currentStance = stance.WingChun;
+                break;
+            case BPM.bpm180plus:
+                currentStance = stance.OutOfBreath;
+                break;
+        }
+
+        if(oldStance != currentStance)
+        {
+            onSwitchStance.Invoke();
+        }
     }
 
-    
 }
 
 

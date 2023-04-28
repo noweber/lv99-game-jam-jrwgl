@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 4310261610617928273}
   - component: {fileID: 1692984482214269690}
   - component: {fileID: 1692984482214269689}
-  - component: {fileID: -980558469370870375}
-  m_Layer: 0
+  - component: {fileID: -3619716403139263227}
+  m_Layer: 6
   m_Name: LittleRedRidingHood
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -50,8 +50,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2125cac6edc36594084386de5fac7303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 2
+  damage: 3
   rateOfFireInSeconds: 1
+  hitSound: {fileID: 0}
+  numberOfHitsRemainingBeforeDestruction: 1
+  CanCauseInfiniteHits: 1
 --- !u!114 &1692984482214269686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,9 +67,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a2e878fdb16706489c113dffab7de79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoints: 1
+  hitPoints: 6
   hitPointsText: {fileID: 0}
   damageText: {fileID: 168693653855988796, guid: 7a207ec32f7e177489d57e8383905ea8, type: 3}
+  destroyGameObjectWhenHitPointsAreZero: 1
 --- !u!114 &4310261610617928273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,7 +83,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c2dcf22f5dc1814781555db5aaff51d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 2
   randomSpeedMagnitude: 0.5
 --- !u!50 &1692984482214269690
 Rigidbody2D:
@@ -96,7 +100,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -128,32 +132,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!61 &-980558469370870375
-BoxCollider2D:
+--- !u!114 &-3619716403139263227
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1692984482214269684}
   m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0626fe89cd5744d42bf68b9bd89fe6bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PrefabsWithAChanceToSpawn: []
+  PercentChanceToSpawnEachPrefab: 0.25
+  MaxSpawnCountPerPrefab: 1
+  PrefabsWhichAlwaysSpawn:
+  - {fileID: 7999413878436085066, guid: 64d8695a924573740b4a4a9bab9b1860, type: 3}
 --- !u!1 &1692984482890159443
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,7 +159,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1692984482890159444}
   - component: {fileID: 1692984482890159445}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}

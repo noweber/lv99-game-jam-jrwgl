@@ -10,7 +10,7 @@ public class UIStance : MonoBehaviour
     private void Awake()
     {
         _text = GetComponent<TextMeshProUGUI>();
-        Stance.Instance.switchStance += UpdateStanceUI;
+        Stance.Instance.onSwitchStance += UpdateStanceUI;
     }
 
     void UpdateStanceUI()

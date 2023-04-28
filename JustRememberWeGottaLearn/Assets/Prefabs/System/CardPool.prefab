@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2505785660841133929
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2505785660841133927}
+  - component: {fileID: 2505785660841133928}
+  m_Layer: 0
+  m_Name: CardPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2505785660841133927
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2505785660841133929}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: -0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2505785660841133928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2505785660841133929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 823520e847ca08a4580ad51ac4c1d0cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_cardCount:
+  - card: {fileID: 6329804507413282914, guid: 739d5995b206267489cba8c990760a91, type: 3}
+    count: 1
+  - card: {fileID: 5883573117208936657, guid: 116381e3112e0e5428ac9a34d54b1beb, type: 3}
+    count: 0
+  - card: {fileID: 8560426272206814846, guid: 9e53b772ab03f65448e92c0702831da4, type: 3}
+    count: 0
+  - card: {fileID: 7794570719012706448, guid: fd2b010aa6dd95c488c9f5c2fd357070, type: 3}
+    count: 0
+  - card: {fileID: 3283060790764028559, guid: e615343ce3bf91e48b8b79a4380177b2, type: 3}
+    count: 0
+  - card: {fileID: 2921477684502813905, guid: 007c1c33a3a4fbf47b6194f74fc08b6e, type: 3}
+    count: 5
+  - card: {fileID: 9023907314662696101, guid: 1a15b1249d0195149a4cb0e34426cfb8, type: 3}
+    count: 2
+  - card: {fileID: 2348849948271285208, guid: fa4ca1a9af5b22e4ebe81e8ca73e6ba7, type: 3}
+    count: 1

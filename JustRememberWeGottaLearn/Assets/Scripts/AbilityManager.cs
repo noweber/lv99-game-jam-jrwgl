@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class AbilityManager : MonoBehaviour
 {
+    /*
     private void Start()
     {
-        Stance.Instance.switchStance += ActivateAbility;
+        Stance.Instance.onSwitchStance += ActivateAbility;
     }
     private void ActivateAbility()
     {
@@ -19,4 +20,5 @@ public class AbilityManager : MonoBehaviour
             Player.Instance.abilitySpawner.enabled = false;
         }
     }
+    */
 }

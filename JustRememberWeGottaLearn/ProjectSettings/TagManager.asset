@@ -6,15 +6,17 @@ TagManager:
   tags:
   - Ground
   - Enemy
+  - KungFuBeat
+  - Collectible
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - KungFuTempo
   - Water
   - UI
-  - 
-  - 
+  - Enemy
+  - AirWall
   - 
   - 
   - 
@@ -42,4 +44,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Middle
+    uniqueID: 1967165647
+    locked: 0
+  - name: Front
+    uniqueID: 557924541
     locked: 0
